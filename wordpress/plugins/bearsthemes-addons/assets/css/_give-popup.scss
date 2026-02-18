@@ -1,0 +1,2355 @@
+.elementor-widget-be-give-form-button {
+  .give-form-wrap .give-btn-modal {
+    width: auto;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    padding: 15px 30px;
+    margin: 0;
+  }
+}
+
+.mfp-wrap {
+  form.elementor-give-modal {
+    &--skin-pumori {
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #4d6995;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #002866;
+        }
+        .give-currency-symbol {
+          background-color: #002866;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #002866;
+          border-color: #002866;
+        }
+        &.give-default-level {
+          background-color: #002866;
+          border-color: #002866;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #002866;
+        }
+        &.give-gateway-option-selected label {
+          color: #002866;
+          &:after {
+            background-color: #002866;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #002866;
+        }
+        input[type=checkbox]:checked + label {
+          color: #002866;
+          &:before {
+            background-color: #002866;
+            border-color: #002866;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #002866;
+        -webkit-box-shadow: 0px 1px 0px #002866;
+        box-shadow: 0px 1px 0px #002866;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #002866;
+        }
+        .give-final-total-amount {
+          color: #002866;
+        }
+      }
+      .give-submit {
+        background-color: #002866;
+        &:hover {
+          color: #002866;
+          background-color: #FFEE00;
+        }
+      }
+    }
+    &--skin-baruntse {
+      color: #555555;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #555555;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #002866;
+        }
+        .give-currency-symbol {
+          background-color: #002866;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #002866;
+          border-color: #002866;
+        }
+        &.give-default-level {
+          background-color: #002866;
+          border-color: #002866;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #002866;
+        }
+        &.give-gateway-option-selected label {
+          color: #002866;
+          &:after {
+            background-color: #002866;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #002866;
+        }
+        input[type=checkbox]:checked + label {
+          color: #002866;
+          &:before {
+            background-color: #002866;
+            border-color: #002866;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #002866;
+        -webkit-box-shadow: 0px 1px 0px #002866;
+        box-shadow: 0px 1px 0px #002866;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #002866;
+        }
+        .give-final-total-amount {
+          color: #002866;
+        }
+      }
+      .give-submit {
+        background-color: #002866;
+        &:hover {
+          color: #002866;
+          background-color: #FFEE00;
+        }
+      }
+    }
+    &--skin-coropuna,
+    &--skin-grid-coropuna {
+      color: #215732;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #215732;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #4E3629;
+        }
+        .give-currency-symbol {
+          background-color: #4E3629;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #4E3629;
+          border-color: #4E3629;
+        }
+        &.give-default-level {
+          background-color: #4E3629;
+          border-color: #4E3629;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #4E3629;
+        }
+        &.give-gateway-option-selected label {
+          color: #4E3629;
+          &:after {
+            background-color: #4E3629;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #4E3629;
+        }
+        input[type=checkbox]:checked + label {
+          color: #4E3629;
+          &:before {
+            background-color: #4E3629;
+            border-color: #4E3629;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #4E3629;
+        -webkit-box-shadow: 0px 1px 0px #4E3629;
+        box-shadow: 0px 1px 0px #4E3629;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #4E3629;
+        }
+        .give-final-total-amount {
+          color: #4E3629;
+        }
+      }
+      .give-submit {
+        background-color: #4E3629;
+        &:hover {
+          background-color: #BFCC80;
+        }
+      }
+    }
+    &--skin-saltoro,
+    &--skin-list-saltoro {
+      color: #4b3381;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #4b3381;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #f97a60;
+        }
+        .give-currency-symbol {
+          background-color: #f97a60;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #f97a60;
+          border-color: #f97a60;
+        }
+        &.give-default-level {
+          background-color: #f97a60;
+          border-color: #f97a60;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #f97a60;
+        }
+        &.give-gateway-option-selected label {
+          color: #f97a60;
+          &:after {
+            background-color: #f97a60;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #f97a60;
+        }
+        input[type=checkbox]:checked + label {
+          color: #f97a60;
+          &:before {
+            background-color: #f97a60;
+            border-color: #f97a60;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #f97a60;
+        -webkit-box-shadow: 0px 1px 0px #f97a60;
+        box-shadow: 0px 1px 0px #f97a60;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #f97a60;
+        }
+        .give-final-total-amount {
+          color: #f97a60;
+        }
+      }
+      .give-submit {
+        background-color: #f97a60;
+        border-radius: 30px;
+        &:hover {
+          background-color: #f7544f;
+        }
+      }
+    }
+    &--skin-hardeol,
+    &--skin-grid-hardeol {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #638c1c;
+        }
+        .give-currency-symbol {
+          background-color: #638c1c;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #638c1c;
+          border-color: #638c1c;
+        }
+        &.give-default-level {
+          background-color: #638c1c;
+          border-color: #638c1c;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #638c1c;
+        }
+        &.give-gateway-option-selected label {
+          color: #638c1c;
+          &:after {
+            background-color: #638c1c;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #638c1c;
+        }
+        input[type=checkbox]:checked + label {
+          color: #638c1c;
+          &:before {
+            background-color: #638c1c;
+            border-color: #638c1c;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #638c1c;
+        -webkit-box-shadow: 0px 1px 0px #638c1c;
+        box-shadow: 0px 1px 0px #638c1c;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #638c1c;
+        }
+        .give-final-total-amount {
+          color: #638c1c;
+        }
+      }
+      .give-submit {
+        background-color: #638c1c;
+        &:hover {
+          background-color: #4C691A;
+        }
+      }
+    }
+    &--skin-batura {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #0055FF;
+        }
+        .give-currency-symbol {
+          background-color: #0055FF;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #0055FF;
+          border-color: #0055FF;
+        }
+        &.give-default-level {
+          background-color: #0055FF;
+          border-color: #0055FF;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #0055FF;
+        }
+        &.give-gateway-option-selected label {
+          color: #0055FF;
+          &:after {
+            background-color: #0055FF;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #0055FF;
+        }
+        input[type=checkbox]:checked + label {
+          color: #0055FF;
+          &:before {
+            background-color: #0055FF;
+            border-color: #0055FF;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #0055FF;
+        -webkit-box-shadow: 0px 1px 0px #0055FF;
+        box-shadow: 0px 1px 0px #0055FF;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #0055FF;
+        }
+        .give-final-total-amount {
+          color: #0055FF;
+        }
+      }
+      .give-submit {
+        background-color: #0055FF;
+        &:hover {
+          background-color: #0044CC;
+        }
+      }
+    }
+    &--skin-nevado {
+      color: #002f6c;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #002f6c;
+          border-radius: 30px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #265ED7;
+          border-radius: 0 30px 30px 0;
+        }
+        .give-currency-symbol {
+          width: 60px;
+          text-align: center;
+          background-color: #265ED7;
+          border-radius: 30px 0 0 30px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 30px;
+        &:hover {
+          color: #265ED7;
+          border-color: #265ED7;
+        }
+        &.give-default-level {
+          background-color: #265ED7;
+          border-color: #265ED7;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #265ED7;
+        }
+        &.give-gateway-option-selected label {
+          color: #265ED7;
+          &:after {
+            background-color: #265ED7;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #265ED7;
+        }
+        input[type=checkbox]:checked + label {
+          color: #265ED7;
+          &:before {
+            background-color: #265ED7;
+            border-color: #265ED7;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #265ED7;
+        -webkit-box-shadow: 0px 1px 0px #265ED7;
+        box-shadow: 0px 1px 0px #265ED7;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #265ED7;
+          border-radius: 30px 0 0 30px;
+        }
+        .give-final-total-amount {
+          color: #265ED7;
+          border-radius: 0 30px 30px 0;
+        }
+      }
+      .give-submit {
+        background-color: #265ED7;
+        border-radius: 30px;
+        &:hover {
+          background-color: #2255C1;
+        }
+      }
+    }
+    &--skin-taboche {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #f7db07;
+        }
+        .give-currency-symbol {
+          background-color: #f7db07;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #f7db07;
+          border-color: #f7db07;
+        }
+        &.give-default-level {
+          background-color: #f7db07;
+          border-color: #f7db07;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #f7db07;
+        }
+        &.give-gateway-option-selected label {
+          color: #f7db07;
+          &:after {
+            background-color: #f7db07;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #f7db07;
+        }
+        input[type=checkbox]:checked + label {
+          color: #f7db07;
+          &:before {
+            background-color: #f7db07;
+            border-color: #f7db07;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #f7db07;
+        -webkit-box-shadow: 0px 1px 0px #f7db07;
+        box-shadow: 0px 1px 0px #f7db07;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #f7db07;
+        }
+        .give-final-total-amount {
+          color: #f7db07;
+        }
+      }
+      .give-submit {
+        background-color: #f7db07;
+        &:hover {
+          background-color: #ffba00;
+        }
+      }
+    }
+    &--skin-cholatse {
+      color: #292937;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #292937;
+          border-radius: 10px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #AB3493;
+          border-radius: 0 10px 10px 0;
+        }
+        .give-currency-symbol {
+          background-color: #AB3493;
+          border-radius: 10px 0 0 10px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 10px;
+        &:hover {
+          color: #AB3493;
+          border-color: #AB3493;
+        }
+        &.give-default-level {
+          background-color: #AB3493;
+          border-color: #AB3493;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #AB3493;
+        }
+        &.give-gateway-option-selected label {
+          color: #AB3493;
+          &:after {
+            background-color: #AB3493;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #AB3493;
+        }
+        input[type=checkbox]:checked + label {
+          color: #AB3493;
+          &:before {
+            background-color: #AB3493;
+            border-color: #AB3493;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #AB3493;
+        -webkit-box-shadow: 0px 1px 0px #AB3493;
+        box-shadow: 0px 1px 0px #AB3493;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #AB3493;
+          border-radius: 10px 0 0 10px;
+        }
+        .give-final-total-amount {
+          color: #AB3493;
+          border-radius: 0 10px 10px 0;
+        }
+      }
+      .give-submit {
+        background-color: #AB3493;
+        border-radius: 10px;
+        &:hover {
+          background-color: #893177;
+        }
+      }
+    }
+    &--skin-galloway {
+      color: #282828;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #282828;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #ffba00;
+        }
+        .give-currency-symbol {
+          background-color: #ffba00;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #ffba00;
+          border-color: #ffba00;
+        }
+        &.give-default-level {
+          background-color: #ffba00;
+          border-color: #ffba00;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #ffba00;
+        }
+        &.give-gateway-option-selected label {
+          color: #ffba00;
+          &:after {
+            background-color: #ffba00;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #ffba00;
+        }
+        input[type=checkbox]:checked + label {
+          color: #ffba00;
+          &:before {
+            background-color: #ffba00;
+            border-color: #ffba00;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #ffba00;
+        -webkit-box-shadow: 0px 1px 0px #ffba00;
+        box-shadow: 0px 1px 0px #ffba00;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #ffba00;
+        }
+        .give-final-total-amount {
+          color: #ffba00;
+        }
+      }
+      .give-submit {
+        background-color: #ffba00;
+        &:hover {
+          background-color: #eba53a;
+        }
+      }
+    }
+    &--skin-paradis {
+      color: #555555;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #555555;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #EF2853;
+        }
+        .give-currency-symbol {
+          background-color: #EF2853;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #EF2853;
+          border-color: #EF2853;
+        }
+        &.give-default-level {
+          background-color: #EF2853;
+          border-color: #EF2853;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #EF2853;
+        }
+        &.give-gateway-option-selected label {
+          color: #EF2853;
+          &:after {
+            background-color: #EF2853;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #EF2853;
+        }
+        input[type=checkbox]:checked + label {
+          color: #EF2853;
+          &:before {
+            background-color: #EF2853;
+            border-color: #EF2853;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #EF2853;
+        -webkit-box-shadow: 0px 1px 0px #EF2853;
+        box-shadow: 0px 1px 0px #EF2853;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #EF2853;
+        }
+        .give-final-total-amount {
+          color: #EF2853;
+        }
+      }
+      .give-submit {
+        background-color: #EF2853;
+        &:hover {
+          background-color: #367978;
+        }
+      }
+    }
+    &--skin-castor {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+          border-radius: 10px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #4892DA;
+          border-radius: 0 10px 10px 0;
+        }
+        .give-currency-symbol {
+          background-color: #4892DA;
+          border-radius: 10px 0 0 10px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 10px;
+        &:hover {
+          color: #4892DA;
+          border-color: #4892DA;
+        }
+        &.give-default-level {
+          background-color: #4892DA;
+          border-color: #4892DA;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #4892DA;
+        }
+        &.give-gateway-option-selected label {
+          color: #4892DA;
+          &:after {
+            background-color: #4892DA;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #4892DA;
+        }
+        input[type=checkbox]:checked + label {
+          color: #4892DA;
+          &:before {
+            background-color: #4892DA;
+            border-color: #4892DA;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #4892DA;
+        -webkit-box-shadow: 0px 1px 0px #4892DA;
+        box-shadow: 0px 1px 0px #4892DA;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #4892DA;
+          border-radius: 10px 0 0 10px;
+        }
+        .give-final-total-amount {
+          color: #4892DA;
+          border-radius: 0 10px 10px 0;
+        }
+      }
+      .give-submit {
+        background-color: #4892DA;
+        border-radius: 10px;
+        &:hover {
+          background-color: #333333;
+        }
+      }
+    }
+    &--skin-wilson {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #a08958;
+        }
+        .give-currency-symbol {
+          background-color: #a08958;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #a08958;
+          border-color: #a08958;
+        }
+        &.give-default-level {
+          background-color: #a08958;
+          border-color: #a08958;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #a08958;
+        }
+        &.give-gateway-option-selected label {
+          color: #a08958;
+          &:after {
+            background-color: #a08958;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #a08958;
+        }
+        input[type=checkbox]:checked + label {
+          color: #a08958;
+          &:before {
+            background-color: #a08958;
+            border-color: #a08958;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #a08958;
+        -webkit-box-shadow: 0px 1px 0px #a08958;
+        box-shadow: 0px 1px 0px #a08958;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #a08958;
+        }
+        .give-final-total-amount {
+          color: #a08958;
+        }
+      }
+      .give-submit {
+        background-color: #a08958;
+        &:hover {
+          background-color: #907B4F;
+        }
+      }
+    }
+    &--skin-grouse {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+          border-radius: 5px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #da9100;
+          border-radius: 0 5px 5px 0;
+        }
+        .give-currency-symbol {
+          background-color: #da9100;
+          border-radius: 5px 0 0 5px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 5px;
+        &:hover {
+          color: #da9100;
+          border-color: #da9100;
+        }
+        &.give-default-level {
+          background-color: #da9100;
+          border-color: #da9100;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #da9100;
+        }
+        &.give-gateway-option-selected label {
+          color: #da9100;
+          &:after {
+            background-color: #da9100;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #da9100;
+        }
+        input[type=checkbox]:checked + label {
+          color: #da9100;
+          &:before {
+            background-color: #da9100;
+            border-color: #da9100;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #da9100;
+        -webkit-box-shadow: 0px 1px 0px #da9100;
+        box-shadow: 0px 1px 0px #da9100;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #da9100;
+          border-radius: 5px 0 0 5px;
+        }
+        .give-final-total-amount {
+          color: #da9100;
+          border-radius: 0 5px 5px 0;
+        }
+      }
+      .give-submit {
+        background-color: #da9100;
+        border-radius: 5px;
+        &:hover {
+          background-color: #CA8601;
+        }
+      }
+    }
+    &--skin-michelson {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+          border-radius: 30px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #63B6D1;
+          border-radius: 0 30px 30px 0;
+        }
+        .give-currency-symbol {
+          width: 60px;
+          text-align: center;
+          background-color: #63B6D1;
+          border-radius: 30px 0 0 30px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 30px;
+        &:hover {
+          color: #63B6D1;
+          border-color: #63B6D1;
+        }
+        &.give-default-level {
+          background-color: #63B6D1;
+          border-color: #63B6D1;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #63B6D1;
+        }
+        &.give-gateway-option-selected label {
+          color: #63B6D1;
+          &:after {
+            background-color: #63B6D1;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #63B6D1;
+        }
+        input[type=checkbox]:checked + label {
+          color: #63B6D1;
+          &:before {
+            background-color: #63B6D1;
+            border-color: #63B6D1;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #63B6D1;
+        -webkit-box-shadow: 0px 1px 0px #63B6D1;
+        box-shadow: 0px 1px 0px #63B6D1;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #63B6D1;
+          border-radius: 30px 0 0 30px;
+        }
+        .give-final-total-amount {
+          color: #63B6D1;
+          border-radius: 0 30px 30px 0;
+        }
+      }
+      .give-submit {
+        background-color: #63B6D1;
+        border-radius: 30px;
+        &:hover {
+          background-color: #000000;
+        }
+      }
+    }
+    &--skin-cerredo {
+      color: #1A1A1A;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #1A1A1A;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #D04A48;
+        }
+        .give-currency-symbol {
+          background-color: #D04A48;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #D04A48;
+          border-color: #D04A48;
+        }
+        &.give-default-level {
+          background-color: #D04A48;
+          border-color: #D04A48;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #D04A48;
+        }
+        &.give-gateway-option-selected label {
+          color: #D04A48;
+          &:after {
+            background-color: #D04A48;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #D04A48;
+        }
+        input[type=checkbox]:checked + label {
+          color: #D04A48;
+          &:before {
+            background-color: #D04A48;
+            border-color: #D04A48;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #D04A48;
+        -webkit-box-shadow: 0px 1px 0px #D04A48;
+        box-shadow: 0px 1px 0px #D04A48;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #D04A48;
+        }
+        .give-final-total-amount {
+          color: #D04A48;
+        }
+      }
+      .give-submit {
+        background-color: #D04A48;
+        &:hover {
+          background-color: #DC2C2A;
+        }
+      }
+    }
+    &--skin-gangri {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #D45F44;
+        }
+        .give-currency-symbol {
+          background-color: #D45F44;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #D45F44;
+          border-color: #D45F44;
+        }
+        &.give-default-level {
+          background-color: #D45F44;
+          border-color: #D45F44;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #D45F44;
+        }
+        &.give-gateway-option-selected label {
+          color: #D45F44;
+          &:after {
+            background-color: #D45F44;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #D45F44;
+        }
+        input[type=checkbox]:checked + label {
+          color: #D45F44;
+          &:before {
+            background-color: #D45F44;
+            border-color: #D45F44;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #D45F44;
+        -webkit-box-shadow: 0px 1px 0px #D45F44;
+        box-shadow: 0px 1px 0px #D45F44;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #D45F44;
+        }
+        .give-final-total-amount {
+          color: #D45F44;
+        }
+      }
+      .give-submit {
+        background-color: #D45F44;
+        &:hover {
+          background-color: #000000;
+        }
+      }
+    }
+    &--skin-manaslu {
+      color: #101318;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #101318;
+          border-radius: 15px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #3780FF;
+          border-radius: 0 15px 15px 0;
+        }
+        .give-currency-symbol {
+          background-color: #3780FF;
+          border-radius: 15px 0 0 15px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 15px;
+        &:hover {
+          color: #3780FF;
+          border-color: #3780FF;
+        }
+        &.give-default-level {
+          background-color: #3780FF;
+          border-color: #3780FF;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #3780FF;
+        }
+        &.give-gateway-option-selected label {
+          color: #3780FF;
+          &:after {
+            background-color: #3780FF;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #3780FF;
+        }
+        input[type=checkbox]:checked + label {
+          color: #3780FF;
+          &:before {
+            background-color: #3780FF;
+            border-color: #3780FF;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #3780FF;
+        -webkit-box-shadow: 0px 1px 0px #3780FF;
+        box-shadow: 0px 1px 0px #3780FF;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #3780FF;
+          border-radius: 15px 0 0 15px;
+        }
+        .give-final-total-amount {
+          color: #3780FF;
+          border-radius: 0 15px 15px 0;
+        }
+      }
+      .give-submit {
+        background-color: #3780FF;
+        border-radius: 15px;
+        &:hover {
+          background-color: #2E6AD2;
+        }
+      }
+    }
+    &--skin-ampato {
+      color: #1D2440;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #1D2440;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #EFAB23;
+        }
+        .give-currency-symbol {
+          background-color: #EFAB23;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #EFAB23;
+          border-color: #EFAB23;
+        }
+        &.give-default-level {
+          background-color: #EFAB23;
+          border-color: #EFAB23;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #EFAB23;
+        }
+        &.give-gateway-option-selected label {
+          color: #EFAB23;
+          &:after {
+            background-color: #EFAB23;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #EFAB23;
+        }
+        input[type=checkbox]:checked + label {
+          color: #EFAB23;
+          &:before {
+            background-color: #EFAB23;
+            border-color: #EFAB23;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #EFAB23;
+        -webkit-box-shadow: 0px 1px 0px #EFAB23;
+        box-shadow: 0px 1px 0px #EFAB23;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #EFAB23;
+        }
+        .give-final-total-amount {
+          color: #EFAB23;
+        }
+      }
+      .give-submit {
+        background-color: #EFAB23;
+        &:hover {
+          background-color: #1D2440;
+        }
+      }
+    }
+    &--skin-changla {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #1f3ddc;
+        }
+        .give-currency-symbol {
+          background-color: #1f3ddc;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #1f3ddc;
+          border-color: #1f3ddc;
+        }
+        &.give-default-level {
+          background-color: #1f3ddc;
+          border-color: #1f3ddc;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #1f3ddc;
+        }
+        &.give-gateway-option-selected label {
+          color: #1f3ddc;
+          &:after {
+            background-color: #1f3ddc;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #1f3ddc;
+        }
+        input[type=checkbox]:checked + label {
+          color: #1f3ddc;
+          &:before {
+            background-color: #1f3ddc;
+            border-color: #1f3ddc;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #1f3ddc;
+        -webkit-box-shadow: 0px 1px 0px #1f3ddc;
+        box-shadow: 0px 1px 0px #1f3ddc;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #1f3ddc;
+        }
+        .give-final-total-amount {
+          color: #1f3ddc;
+        }
+      }
+      .give-submit {
+        background-color: #1f3ddc;
+        &:hover {
+          background-color: #1931AF;
+        }
+      }
+    }
+    &--skin-jorasses {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #EA0028;
+        }
+        .give-currency-symbol {
+          background-color: #EA0028;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #EA0028;
+          border-color: #EA0028;
+        }
+        &.give-default-level {
+          background-color: #EA0028;
+          border-color: #EA0028;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #EA0028;
+        }
+        &.give-gateway-option-selected label {
+          color: #EA0028;
+          &:after {
+            background-color: #EA0028;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #EA0028;
+        }
+        input[type=checkbox]:checked + label {
+          color: #EA0028;
+          &:before {
+            background-color: #EA0028;
+            border-color: #EA0028;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #EA0028;
+        -webkit-box-shadow: 0px 1px 0px #EA0028;
+        box-shadow: 0px 1px 0px #EA0028;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #EA0028;
+        }
+        .give-final-total-amount {
+          color: #EA0028;
+        }
+      }
+      .give-submit {
+        background-color: #EA0028;
+        &:hover {
+          background-color: #001b72;
+        }
+      }
+    }
+    &--skin-andrus,
+    &--skin-list-andrus {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #fed700;
+        }
+        .give-currency-symbol {
+          background-color: #fed700;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #fed700;
+          border-color: #fed700;
+        }
+        &.give-default-level {
+          background-color: #fed700;
+          border-color: #fed700;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #fed700;
+        }
+        &.give-gateway-option-selected label {
+          color: #fed700;
+          &:after {
+            background-color: #fed700;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #fed700;
+        }
+        input[type=checkbox]:checked + label {
+          color: #fed700;
+          &:before {
+            background-color: #fed700;
+            border-color: #fed700;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #fed700;
+        -webkit-box-shadow: 0px 1px 0px #fed700;
+        box-shadow: 0px 1px 0px #fed700;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #fed700;
+        }
+        .give-final-total-amount {
+          color: #fed700;
+        }
+      }
+      .give-submit {
+        background-color: #fed700;
+        &:hover {
+          background-color: #F1CD08;
+        }
+      }
+    }
+    &--skin-grid-changtse {
+      color: #333333;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #333333;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #E05D41;
+        }
+        .give-currency-symbol {
+          background-color: #E05D41;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        &:hover {
+          color: #E05D41;
+          border-color: #E05D41;
+        }
+        &.give-default-level {
+          background-color: #E05D41;
+          border-color: #E05D41;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #E05D41;
+        }
+        &.give-gateway-option-selected label {
+          color: #E05D41;
+          &:after {
+            background-color: #E05D41;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #E05D41;
+        }
+        input[type=checkbox]:checked + label {
+          color: #E05D41;
+          &:before {
+            background-color: #E05D41;
+            border-color: #E05D41;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #E05D41;
+        -webkit-box-shadow: 0px 1px 0px #E05D41;
+        box-shadow: 0px 1px 0px #E05D41;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #E05D41;
+        }
+        .give-final-total-amount {
+          color: #E05D41;
+        }
+      }
+      .give-submit {
+        background-color: #E05D41;
+        &:hover {
+          background-color: #667A62;
+        }
+      }
+    }
+    &--skin-tronador {
+      color: #222222;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #222222;
+          border-radius: 30px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #4B915A;
+          border-radius: 0 30px 30px 0;
+        }
+        .give-currency-symbol {
+          width: 60px;
+          text-align: center;
+          background-color: #4B915A;
+          border-radius: 30px 0 0 30px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 30px;
+        &:hover {
+          color: #4B915A;
+          border-color: #4B915A;
+        }
+        &.give-default-level {
+          background-color: #4B915A;
+          border-color: #4B915A;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #4B915A;
+        }
+        &.give-gateway-option-selected label {
+          color: #4B915A;
+          &:after {
+            background-color: #4B915A;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #4B915A;
+        }
+        input[type=checkbox]:checked + label {
+          color: #4B915A;
+          &:before {
+            background-color: #4B915A;
+            border-color: #4B915A;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #4B915A;
+        -webkit-box-shadow: 0px 1px 0px #4B915A;
+        box-shadow: 0px 1px 0px #4B915A;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #4B915A;
+          border-radius: 30px 0 0 30px;
+        }
+        .give-final-total-amount {
+          color: #4B915A;
+          border-radius: 0 30px 30px 0;
+        }
+      }
+      .give-submit {
+        background-color: #4B915A;
+        border-radius: 30px;
+        &:hover {
+          background-color: #477652;
+        }
+      }
+    }
+    &--skin-vaccine,
+    &--skin-grid-vaccine {
+      color: #151515;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #151515;
+          border-radius: 10px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #25A5F4;
+          border-radius: 0 10px 10px 0;
+        }
+        .give-currency-symbol {
+          background-color: #25A5F4;
+          border-radius: 10px 0 0 10px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 10px;
+        &:hover {
+          color: #25A5F4;
+          border-color: #25A5F4;
+        }
+        &.give-default-level {
+          background-color: #25A5F4;
+          border-color: #25A5F4;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #25A5F4;
+        }
+        &.give-gateway-option-selected label {
+          color: #25A5F4;
+          &:after {
+            background-color: #25A5F4;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #25A5F4;
+        }
+        input[type=checkbox]:checked + label {
+          color: #25A5F4;
+          &:before {
+            background-color: #25A5F4;
+            border-color: #25A5F4;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #25A5F4;
+        -webkit-box-shadow: 0px 1px 0px #25A5F4;
+        box-shadow: 0px 1px 0px #25A5F4;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #25A5F4;
+          border-radius: 10px 0 0 10px;
+        }
+        .give-final-total-amount {
+          color: #25A5F4;
+          border-radius: 0 10px 10px 0;
+        }
+      }
+      .give-submit {
+        background-color: #25A5F4;
+        border-radius: 10px;
+        &:hover {
+          background-color: #0052B5;
+        }
+      }
+    }
+    &--skin-yutmaru,
+    &--skin-grid-yutmaru {
+      color: #151515;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #151515;
+          border-radius: 30px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #f4b03e;
+          border-radius: 0 30px 30px 0;
+        }
+        .give-currency-symbol {
+          width: 60px;
+          text-align: center;
+          background-color: #f4b03e;
+          border-radius: 30px 0 0 30px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 30px;
+        &:hover {
+          color: #f4b03e;
+          border-color: #f4b03e;
+        }
+        &.give-default-level {
+          background-color: #f4b03e;
+          border-color: #f4b03e;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #f4b03e;
+        }
+        &.give-gateway-option-selected label {
+          color: #f4b03e;
+          &:after {
+            background-color: #f4b03e;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #f4b03e;
+        }
+        input[type=checkbox]:checked + label {
+          color: #f4b03e;
+          &:before {
+            background-color: #f4b03e;
+            border-color: #f4b03e;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #f4b03e;
+        -webkit-box-shadow: 0px 1px 0px #f4b03e;
+        box-shadow: 0px 1px 0px #f4b03e;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #f4b03e;
+          border-radius: 30px 0 0 30px;
+        }
+        .give-final-total-amount {
+          color: #f4b03e;
+          border-radius: 0 30px 30px 0;
+        }
+      }
+      .give-submit {
+        background-color: #f4b03e;
+        border-radius: 30px;
+        &:hover {
+          background-color: #009E74;
+        }
+      }
+    }
+
+    &--skin-jimara {
+      color: #151515;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #151515;
+          border-radius: 30px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #53BB9F;
+          border-radius: 0 30px 30px 0;
+        }
+        .give-currency-symbol {
+          width: 60px;
+          text-align: center;
+          background-color: #53BB9F;
+          border-radius: 30px 0 0 30px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 30px;
+        &:hover {
+          color: #53BB9F;
+          border-color: #53BB9F;
+        }
+        &.give-default-level {
+          background-color: #53BB9F;
+          border-color: #53BB9F;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #53BB9F;
+        }
+        &.give-gateway-option-selected label {
+          color: #53BB9F;
+          &:after {
+            background-color: #53BB9F;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #53BB9F;
+        }
+        input[type=checkbox]:checked + label {
+          color: #53BB9F;
+          &:before {
+            background-color: #53BB9F;
+            border-color: #53BB9F;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #53BB9F;
+        -webkit-box-shadow: 0px 1px 0px #53BB9F;
+        box-shadow: 0px 1px 0px #53BB9F;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #53BB9F;
+          border-radius: 30px 0 0 30px;
+        }
+        .give-final-total-amount {
+          color: #53BB9F;
+          border-radius: 0 30px 30px 0;
+        }
+      }
+      .give-submit {
+        background-color: #53BB9F;
+        border-radius: 30px;
+        &:hover {
+          background-color: #306F5E;
+        }
+      }
+    }
+    &--skin-platons,
+    &--skin-grid-platons {
+      color: #1C4840;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #1C4840;
+          border-radius: 3px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #E97912;
+          border-radius: 0 3px 3px 0;
+        }
+        .give-currency-symbol {
+          width: 60px;
+          text-align: center;
+          background-color: #E97912;
+          border-radius: 3px 0 0 3px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 3px;
+        &:hover {
+          color: #E97912;
+          border-color: #E97912;
+        }
+        &.give-default-level {
+          background-color: #E97912;
+          border-color: #E97912;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #E97912;
+        }
+        &.give-gateway-option-selected label {
+          color: #E97912;
+          &:after {
+            background-color: #E97912;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #E97912;
+        }
+        input[type=checkbox]:checked + label {
+          color: #E97912;
+          &:before {
+            background-color: #E97912;
+            border-color: #E97912;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #E97912;
+        -webkit-box-shadow: 0px 1px 0px #E97912;
+        box-shadow: 0px 1px 0px #E97912;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #E97912;
+          border-radius: 3px 0 0 3px;
+        }
+        .give-final-total-amount {
+          color: #E97912;
+          border-radius: 0 3px 3px 0;
+        }
+      }
+      .give-submit {
+        background-color: #E97912;
+        border-radius: 3px;
+        &:hover {
+          background-color: #E97912;
+        }
+      }
+    }
+    &--skin-nuptse,
+    &--skin-grid-nuptse {
+      color: #151515;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #151515;
+          border-radius: 3px;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #151515;
+          border-radius: 0 30px 30px 0;
+        }
+        .give-currency-symbol {
+          width: 60px;
+          text-align: center;
+          background-color: #3F86ED;
+          border-radius: 30px 0 0 30px;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 30px;
+        &:hover {
+          color: #3F86ED;
+          border-color: #3F86ED;
+        }
+        &.give-default-level {
+          background-color: #3F86ED;
+          border-color: #3F86ED;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #3F86ED;
+        }
+        &.give-gateway-option-selected label {
+          color: #3F86ED;
+          &:after {
+            background-color: #3F86ED;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #3F86ED;
+        }
+        input[type=checkbox]:checked + label {
+          color: #3F86ED;
+          &:before {
+            background-color: #3F86ED;
+            border-color: #3F86ED;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #3F86ED;
+        -webkit-box-shadow: 0px 1px 0px #3F86ED;
+        box-shadow: 0px 1px 0px #3F86ED;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #3F86ED;
+          border-radius: 30px 0 0 30px;
+        }
+        .give-final-total-amount {
+          color: #3F86ED;
+          border-radius: 0 30px 30px 0;
+        }
+      }
+      .give-submit {
+        background-color: #3F86ED;
+        border-radius: 30px;
+        &:hover {
+          background-color: #3F86ED;
+        }
+      }
+    }
+    &--skin-gamin,
+    &--skin-grid-gamin {
+      color: #171717;
+      .form-row {
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        input[type=url],
+        input[type=password],
+        select,
+        textarea {
+          color: #171717;
+          border-radius: 0;
+        }
+      }
+      .give-total-wrap {
+        #give-amount {
+          color: #171717;
+          border-radius: 0;
+        }
+        .give-currency-symbol {
+          width: 60px;
+          text-align: center;
+          background-color: #846DB7;
+          border-radius: 0;
+        }
+      }
+      #give-donation-level-button-wrap .give-btn {
+        border-radius: 0;
+        &:hover {
+          color: #846DB7;
+          border-color: #846DB7;
+        }
+        &.give-default-level {
+          background-color: #846DB7;
+          border-color: #846DB7;
+        }
+      }
+      #give-gateway-radio-list > li {
+        label:hover {
+          color: #846DB7;
+        }
+        &.give-gateway-option-selected label {
+          color: #846DB7;
+          &:after {
+            background-color: #846DB7;
+          }
+        }
+      }
+      #give_terms_agreement {
+        label:hover {
+          color: #846DB7;
+        }
+        input[type=checkbox]:checked + label {
+          color: #846DB7;
+          &:before {
+            background-color: #846DB7;
+            border-color: #846DB7;
+          }
+        }
+      }
+      .give_terms_links {
+        color: #846DB7;
+        -webkit-box-shadow: 0px 1px 0px #846DB7;
+        box-shadow: 0px 1px 0px #846DB7;
+      }
+      #give-final-total-wrap {
+        .give-donation-total-label {
+          background-color: #846DB7;
+          border-radius: 0;
+        }
+        .give-final-total-amount {
+          color: #846DB7;
+          border-radius: 0;
+        }
+      }
+      .give-submit {
+        background-color: #846DB7;
+        border-radius: 0;
+        &:hover {
+          background-color: #846DB7;
+        }
+      }
+    }
+
+  }
+}
