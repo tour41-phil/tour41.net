@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------
 # Pin to a specific minor version for reproducibility.  Bump deliberately and
 # rebuild through CI when upgrading WordPress.
-FROM wordpress:6.7.2-php8.3-fpm
+FROM wordpress:6.9.1-php8.3-fpm
 
 # ── Redis PHP extension (required by object-cache drop-in) ────────────────
 RUN pecl install redis \
