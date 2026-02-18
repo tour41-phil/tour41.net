@@ -1,0 +1,10 @@
+# ==========================================================================
+# tour41.net – backup crontab
+# ==========================================================================
+# Supercronic crontab for automated backups
+# Format: minute hour day month weekday command
+# ==========================================================================
+
+# Default: daily backup at 03:30 (configurable via BACKUP_CRON env var)
+# This line will be overridden if BACKUP_CRON is set via docker-compose
+30 3 * * * /backup/scripts/backup.sh

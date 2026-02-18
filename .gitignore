@@ -6,6 +6,10 @@ build/
 # WordPress uploads & runtime data (lives on the server, not in git)
 data/
 
+# Backup restore directories
+restore/
+backups/
+
 # OS / editor
 .DS_Store
 Thumbs.db

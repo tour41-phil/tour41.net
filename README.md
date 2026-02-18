@@ -79,20 +79,60 @@ To upgrade:
 
 ## Backups
 
-A database backup script is included:
+The repository includes a fully automated backup system using **restic** and **Oracle Cloud Object Storage (OCI)**.
+
+### Features
+
+- 🔐 **Encrypted backups** with restic (AES-256)
+- ☁️ **Off-site storage** on Oracle Cloud (10GB free tier)
+- ⏰ **Automated scheduling** via containerized cron
+- 🔄 **Retention policy** with automatic pruning
+- 💾 **Full disaster recovery** capability
+
+### Quick Start
+
+1. **Set up Oracle Cloud Object Storage** (free tier)
+2. **Configure credentials** in `.env`:
+   ```bash
+   OCI_S3_ENDPOINT=https://namespace.compat.objectstorage.region.oraclecloud.com
+   OCI_BUCKET_NAME=tour41-backups
+   AWS_ACCESS_KEY_ID=your_access_key
+   AWS_SECRET_ACCESS_KEY=your_secret_key
+   RESTIC_PASSWORD=your_encryption_password
+   ```
+3. **Deploy backup service**:
+   ```bash
+   docker compose up -d backup
+   ```
+
+### Backup Contents
+
+- ✅ MariaDB database (compressed SQL dump)
+- ✅ WordPress uploads (wp-content/uploads)
+- ✅ Metadata (timestamp, versions, git commit)
+
+### Manual Backup & Restore
 
 ```bash
-# Run manually
-./scripts/backup.sh
+# Run backup now
+docker compose exec backup /backup/scripts/backup.sh
 
-# Or schedule via cron (daily at 03:00)
-echo "0 3 * * * /opt/tour41.net/scripts/backup.sh /opt/tour41.net/backups" \
-  | crontab -
+# List snapshots
+docker compose exec backup restic snapshots
+
+# Restore latest backup
+docker compose exec backup /backup/scripts/restore.sh latest
 ```
 
-Backups older than 30 days are automatically pruned. The `wp_data` volume
-(uploads, etc.) should also be backed up – consider a volume snapshot or
-`rsync` from the Docker volume mount point.
+### Full Documentation
+
+See **[BACKUP.md](BACKUP.md)** for complete setup guide, restore procedures, troubleshooting, and disaster recovery.
+
+---
+
+## Legacy Backup Script
+
+The old host-based backup script (`scripts/backup.sh`) is still available for manual database dumps, but the containerized restic solution is recommended for production use.
 
 ## Traefik integration
 
