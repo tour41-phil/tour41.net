@@ -110,6 +110,11 @@ RUN set -eux; \
 COPY tour41-entrypoint.sh /usr/local/bin/tour41-entrypoint.sh
 RUN chmod +x /usr/local/bin/tour41-entrypoint.sh
 
+# Legacy backup restoration script for UpdraftPlus backups
+# Allows importing database and uploads from UpdraftPlus archives
+COPY legacy-restore.sh /usr/local/bin/legacy-restore.sh
+RUN chmod +x /usr/local/bin/legacy-restore.sh
+
 ENTRYPOINT ["tour41-entrypoint.sh"]
 
 # Be explicit: run php-fpm by default.
