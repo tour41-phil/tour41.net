@@ -55,8 +55,13 @@ docker compose up -d
 Custom themes and plugins are **baked into the Docker image** so deploys are
 reproducible and nothing needs to be copied to the server manually.
 
-1. Place theme files under `wordpress/themes/<theme-name>/`.
-2. Place plugin directories under `wordpress/plugins/<plugin-name>/`.
+To reduce repo size/complexity, plugins (and themes) may be committed as either:
+
+- a normal directory (unpacked)
+- a `.zip` archive (the image build will unpack it)
+
+1. Place theme files under `wordpress/themes/<theme-name>/` (or a `.zip` at `wordpress/themes/<theme-name>.zip`).
+2. Place plugins under `wordpress/plugins/<plugin-name>/` (or a `.zip` at `wordpress/plugins/<plugin-name>.zip`).
 3. Push to `main` — GitHub Actions will build and push a new image to GHCR.
 4. On the VPS, pull the new image and recreate the container:
 
@@ -64,6 +69,25 @@ reproducible and nothing needs to be copied to the server manually.
 docker compose pull wordpress
 docker compose up -d wordpress
 ```
+
+### Note on persistent volumes vs baked-in code
+
+This stack mounts a named volume at `/var/www/html` (`wp_data`) so **Nginx** and
+**php-fpm** share the same WordPress files. A side-effect is that Docker volumes
+can *mask* updates baked into a new image (WordPress core, plugins, themes).
+
+To avoid that, the custom WordPress image includes a small wrapper entrypoint
+that, **when the image changes**, refreshes:
+
+- WordPress core files (preserving `wp-content/`)
+- Baked-in plugins and themes under `wp-content/plugins/` and `wp-content/themes/`
+
+User-installed plugins/themes and uploads remain in the volume and are not
+deleted.
+
+> If you update a baked-in plugin/theme via the WordPress admin UI, it will be
+> overwritten again on the next container restart after an image update. Treat
+> baked-in plugins/themes as immutable and update them via git → CI image build.
 
 > **Tip:** To install a Redis object-cache drop-in (e.g. from the
 > [redis-cache](https://wordpress.org/plugins/redis-cache/) plugin), add its
