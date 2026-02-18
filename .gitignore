@@ -9,6 +9,7 @@ data/
 # Backup restore directories
 restore/
 backups/
+updraft/
 
 # OS / editor
 .DS_Store

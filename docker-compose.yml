@@ -70,7 +70,7 @@ services:
         if (getenv('WP_SITEURL')) define('WP_SITEURL', getenv('WP_SITEURL'));
     volumes:
       - wp_data:/var/www/html
-      - ./updraft:/backups
+      - ${BACKUP_HOST_PATH:-.}/updraft:/backups
     networks:
       - backend
 

@@ -52,6 +52,16 @@ if [ ! -d "$BACKUP_PATH" ]; then
   error "Backup path does not exist: $BACKUP_PATH"
 fi
 
+# Debug: show what's in the backup directory
+log "DEBUG: Listing contents of $BACKUP_PATH:"
+ls -lh "$BACKUP_PATH" >&2 || true
+log "DEBUG: End of directory listing"
+
+# Check if the directory is empty
+if [ ! "$(ls -A "$BACKUP_PATH")" ]; then
+  error "Backup directory is empty: $BACKUP_PATH"
+fi
+
 # --- DATABASE CREDENTIALS LOGIC ---
 get_db_config() {
   local var_name=$1
@@ -95,9 +105,10 @@ log "-----------------------------------"
 log "Checking for database backups..."
 
 # Use find for reliable file detection (more reliable than ls globs)
-DB_ZIP=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_db.zip" | head -n 1 || true)
-DB_GZ=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_db.gz" | head -n 1 || true)
-DB_SQL=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_db" ! -name "*.*" | head -n 1 || true)
+# Match both underscore and hyphen patterns: backup_*_db, backup_*-db, etc.
+DB_ZIP=$(find "$BACKUP_PATH" -maxdepth 1 -type f \( -name "backup_*_db.zip" -o -name "backup_*-db.zip" \) | head -n 1 || true)
+DB_GZ=$(find "$BACKUP_PATH" -maxdepth 1 -type f \( -name "backup_*_db.gz" -o -name "backup_*-db.gz" \) | head -n 1 || true)
+DB_SQL=$(find "$BACKUP_PATH" -maxdepth 1 -type f \( -name "backup_*_db" -o -name "backup_*-db" \) ! -name "*.*" | head -n 1 || true)
 
 log "DEBUG: Found DB_ZIP=$DB_ZIP"
 log "DEBUG: Found DB_GZ=$DB_GZ"
@@ -111,9 +122,9 @@ if [ -n "$DB_ZIP" ] || [ -n "$DB_GZ" ] || [ -n "$DB_SQL" ]; then
     log "Unzipping database archive: $(basename "$DB_ZIP")"
     unzip -o "$DB_ZIP" -d "$BACKUP_PATH"
     # Re-check for .gz or plain SQL after unzip
-    DB_GZ=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "*.gz" | head -n 1 || true)
+    DB_GZ=$(find "$BACKUP_PATH" -maxdepth 1 -type f \( -name "*.gz" \) | head -n 1 || true)
     if [ -z "$DB_GZ" ]; then
-      DB_SQL=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_db" ! -name "*.*" | head -n 1 || true)
+      DB_SQL=$(find "$BACKUP_PATH" -maxdepth 1 -type f \( -name "backup_*_db" -o -name "backup_*-db" \) ! -name "*.*" | head -n 1 || true)
     fi
   fi
 
@@ -159,7 +170,8 @@ fi
 log "-----------------------------------"
 log "Checking for uploads backups..."
 
-UPLOADS_ZIPS=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_uploads*.zip" | sort)
+# Match both underscore and hyphen patterns: backup_*_uploads*, backup_*-uploads*, etc.
+UPLOADS_ZIPS=$(find "$BACKUP_PATH" -maxdepth 1 -type f \( -name "backup_*_uploads*.zip" -o -name "backup_*-uploads*.zip" \) | sort)
 
 log "DEBUG: Found uploads files: $UPLOADS_ZIPS"
 
