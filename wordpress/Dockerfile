@@ -10,7 +10,7 @@ RUN pecl install redis \
     && docker-php-ext-enable redis
 
 # ── Custom theme ──────────────────────────────────────────────────────────
-COPY themes/tour41/ /usr/src/wordpress/wp-content/themes/tour41/
+COPY themes/ /usr/src/wordpress/wp-content/themes/
 
 # ── Manual / custom plugins ──────────────────────────────────────────────
 # Each sub-directory under plugins/ becomes a WP plugin.
