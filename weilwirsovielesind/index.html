@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+	<title>Weil wir so viele sind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="Tour41 e.V.">
+
+	<meta property="og:title" content="Weil wir so viele sind">
+	<meta property="og:description" content="#JaIchBin ist ein Hashtag für alle Betroffenen von sexuellem Missbrauch und Gewalt in der Kindheit, für alle Überlebenden, für alle Opfer und Angehörigen.">
+	<meta property="og:image" content="https://www.weilwirsovielesind.de/images/jaichbin_og.jpg">
+	<meta property="og:url" content="https://www.weilwirsovielesind.de">
+
+	<meta name="twitter:title" content="Weil wir so viele sind ">
+	<meta name="twitter:description" content=" #JaIchBin ist ein Hashtag für alle Betroffenen von sexuellem Missbrauch und Gewalt in der Kindheit, für alle Überlebenden, für alle Opfer und Angehörigen.">
+	<meta name="twitter:image" content="https://www.weilwirsovielesind.de/images/jaichbin_tw.jpg">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image:alt" content="Weil wir so viele sind - #JaIchBin">
+
+	<link rel="shortcut icon" href="images/favicon.ico">
+
+	<!-- CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="css/flexslider.css" rel="stylesheet" type="text/css" />
+	<link href="css/animate.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/owl.carousel.css" rel="stylesheet">
+	<link href="css/featherlight.min.css" rel="stylesheet" type="text/css" />
+	<link href="css/featherlight.gallery.min.css" rel="stylesheet" type="text/css" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+	<!-- FONTS -->
+	<link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500italic,700,500,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<!--<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">	-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
+	<!-- SCRIPTS -->
+	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <!--[if IE]><html class="ie" lang="en"> <![endif]-->
+
+	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="js/jquery.nicescroll.min.js" type="text/javascript"></script>
+	<script src="js/superfish.min.js" type="text/javascript"></script>
+	<script src="js/jquery.flexslider-min.js" type="text/javascript"></script>
+	<script src="js/owl.carousel.js" type="text/javascript"></script>
+	<script src="js/animate.js" type="text/javascript"></script>
+	<script src="js/jquery.BlackAndWhite.js"></script>
+	<script src="js/featherlight.min.js"></script>
+	<script src="js/featherlight.gallery.min.js"></script>
+	<script src="js/myscript.js" type="text/javascript"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/regular.min.js" integrity="sha512-n3lyI+8hlPaX2YoSywJxVwUWQeeCdksCdawZBaymlzL5YvWIeD4RCG1s9EF2PxGYrpJoC//ns1/O/KWAfa/vjg==" crossorigin="anonymous"></script>
+	<script>
+
+		//BlackAndWhite
+		$(window).load(function(){
+			$('.client_img').BlackAndWhite({
+				hoverEffect : true, // default true
+				// set the path to BnWWorker.js for a superfast implementation
+				webworkerPath : false,
+				// for the images with a fluid width and height
+				responsive:true,
+				// to invert the hover effect
+				invertHoverEffect: false,
+				// this option works only on the modern browsers ( on IE lower than 9 it remains always 1)
+				intensity:1,
+				speed: { //this property could also be just speed: value for both fadeIn and fadeOut
+					fadeIn: 300, // 200ms for fadeIn animations
+					fadeOut: 300 // 800ms for fadeOut animations
+				},
+				onImageReady:function(img) {
+					// this callback gets executed anytime an image is converted
+				}
+			});
+		});
+
+	</script>
+
+	<style>
+	.flex-row {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	img.jaichbin {
+		/*padding: 0.5em;*/
+	}
+
+.box-donate {
+	position: fixed;
+   right: 25px;
+   top: 33%;
+
+   z-index: 99999;
+}
+ 
+.btn-donate {
+	float: right;
+   width: 70px;
+   height: 70px;
+   background-color: rgb(136, 192, 0);
+   border-radius: 50%;
+   box-shadow: 0 6px 10px 0 #666;
+   transition: all 0.1s ease-in-out;
+ 
+   font-size: 50px;
+   color: white;
+   text-align: center;
+   line-height: 70px;
+
+   padding: 10px;
+}
+
+.btn-donate>i {
+	font-size: 75%;
+	position: relative;
+	top: -0.33em;
+}
+ 
+.box-donate:hover {
+   transform: scale(1.1);
+   color: white;
+
+  animation: shake 150ms 1;
+  animation-timing-function: linear 
+}
+
+@keyframes shake {
+  0% { transform: rotate(1.5deg); }
+  50% { transform: rotate(-1deg); }
+  100% { transform: rotate(1.5deg); }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.box-donate:hover > .text-donate{
+	display: block;
+    visibility: visible;
+    opacity: 1;
+    animation: fade 0.5s;
+}
+
+.text-donate {
+	display: none;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 500ms, visibility 500ms;
+            transition: opacity 500ms, visibility 500ms;
+
+   	z-index: 99999;
+   	float: left;
+
+   	font-size: 125% !important;
+
+   background-color: rgb(136, 192, 0);
+   border-radius: 10px;
+   box-shadow: 0 6px 10px 0 #666;
+   transition: all 0.1s ease-in-out;
+   padding: 10px;
+   color:white;
+   font-size: 14px;
+   margin-right: 1em;
+   margin-top: 1em;
+}
+
+.box-donate:hover a {
+	color: white;
+	   box-shadow: 0 6px 14px 0 #666;
+	}
+
+	</style>
+
+</head>
+<body>
+
+<!-- PRELOADER -->
+<img id="preloader" src="images/preloader.gif" alt="" />
+<!-- //PRELOADER -->
+<div class="preloader_hide">
+	<div class="box-donate">
+		<a class="text-donate" href="http://tour41.net/spenden/" target="_blank">
+			Spenden!
+		</a>
+		<a class="btn-donate" href="http://tour41.net/spenden/" target="_blank">
+			<i class="fas fa-hands-helping"></i>
+		</a>
+	</div>
+
+	<!-- PAGE -->
+	<div id="page">
+
+		<!-- HEADER -->
+		<header>
+
+			<!-- MENU BLOCK -->
+			<div class="menu_block">
+
+				<!-- CONTAINER -->
+				<div class="container clearfix">
+
+					<!-- LOGO -->
+					<div class="logo pull-left">
+						<a href="index.html" style="font-size: 150%;">Weil wir so viele sind</a>
+					</div><!-- //LOGO -->
+
+					<!-- MENU -->
+					<div class="pull-right">
+						<nav class="navmenu right">
+							<ul>
+								<!--<li class="first active scroll_btn"><a href="#home" >Weil wir so viele sind</a></li>-->
+								<li class="scroll_btn">
+									<a href="http://tour41.net" target="_blank">
+									<picture style="position: relative; top:-20px;">
+										<source srcset="images/t41logo@2x.jpg 2x">
+										<img style="max-height: 70px;" src="images/t41logo.jpg" alt="Tour41 e.V.">
+									</picture>
+									</a>
+								</li>
+							</ul>
+						</nav>
+					</div><!-- //MENU -->
+				</div><!-- //MENU BLOCK -->
+			</div><!-- //CONTAINER -->
+		</header><!-- //HEADER -->
+
+		<!-- HOME -->
+		<section id="home" class="padbot0">
+			<!-- MULTI PURPOSE -->
+			<div class="purpose_block">
+
+				<!-- CONTAINER -->
+				<div class="container">
+
+					<div style="bottom: 1em; left: 1em; position: fixed; z-index: 9999;">
+					    <div class="toast ml-auto" role="alert" data-delay="700" data-autohide="false">
+					        <div class="toast-header">
+					            <strong class="mr-auto text-primary">Cookies und Datenschutz</strong>
+					            <small class="text-muted"></small>
+					            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+					                <span aria-hidden="true">×</span>
+					            </button>
+					        </div>
+					        <div class="toast-body">
+					            Auf dieser Seite verwenden wir lediglich zur Betreibung zwingend notwendige Cookies. Mehr Informationen zum Them Datenschutz bei Tour41 e.V. auch <a href="https://tour41.net/datenschutz" target="_blank">hier</a>.
+					        </div>
+					    </div>
+					</div>
+
+					<div class="row justify-content-center" data-animated="fadeInUp">
+						<div class="col-lg-auto col-md-auto padbot30">
+						</div>
+					</div>
+					<!-- ROW -->
+					<div class="row justify-content-center" data-animated="fadeInUp">
+						<div class="col-lg-auto col-md-auto padbot30">
+							<H1>Weil wir so viele sind...</H1>
+						</div>
+					</div>
+
+					<!-- ROW -->
+<!--					<div class="row justify-content-center" data-animated="fadeInUp">
+						<div class="offset-lg-2 offset-md-2 offset-sm-0 col-lg-auto col-md-auto padbot30">
+							<H2>... helfen wir uns selber!</H2>
+						</div>
+					</div>
+-->
+					<div class="row justify-content-center align-items-center" data-animated="fadeInUp">
+						<div class="col-lg-auto col-md-auto col-sm-auto padbot30">
+							<p>
+								<em>#JaIchBin</em> ist ein Hashtag<br/>
+								für alle Betroffenen<br/>
+								von sexuellem Missbrauch und Gewalt in der Kindheit,<br/>
+								für alle Überlebenden,<br/>
+								für alle Opfer und Angehörigen<br/>
+								Raus aus der Dunkelheit, mach dich sichtbar:<br/>
+								Schicke uns dein Kinderbild und einen Satz an <u><a href="mailto:info@tour41.net">info@tour41.net</a></u><br/>
+								der dich in deiner Kindheit begleitet hat<br/>
+								und dich heute nicht loslässt!<br/>
+								Zeige so das <em>WIR</em> unglaublich viele sind…<br/>
+							</p>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4 padbot30"> 
+							<a href="https://tour41.net/wp-content/uploads/2021/11/Booklet_Hilfe-Telefon.pdf" target="_blank"><img src="https://tour41.net/wp-content/uploads/2021/11/Hilfekachel_Twitter_Facebook_Hilfe-Telefon.jpg"/></a>
+						</div>
+					</div>
+
+					<div class="row justify-content-center align-items-center" data-animated="fadeInUp">
+						<div class="col-lg-auto col-md-auto col-sm-auto padbot30">
+							<p style="font-size: 14px;">
+								© Copyright 2021 – Alle Inhalte dieses Internetangebotes, insbesondere Texte, Fotografien und Grafiken, sind urheberrechtlich geschützt. Das Urheberrecht liegt bei Tour41 e.V.<br/>
+								Bitte fragen Sie uns, falls Sie die Inhalte dieses Internetangebotes verwenden oder verlinken möchten. Kampagnen-Beteiligte (in erster Linie die Überlebenden selbst) haben Mitbestimmungsrecht!
+							</p>
+						</div>
+					</div>
+
+				</div>
+				
+				<!-- CONTAINER -->
+				<div class="container-fluid">
+					<div class="row flex-row" id="img_grid">
+						
+					</div>
+				</div>
+
+<!--
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 padbot30">
+							<p>
+								Der „Tour41 e.V.“ ist ein gemeinnütziger Verein, der Betroffene in der Phase des Traumaausbruchs auffangen möchte. Bei uns werden Betroffene Hilfe in der ersten Stunde finden.
+							</p>
+							<p>
+								Wir möchten niemanden allein lassen.
+							</p>
+							<p>
+								In unserem <strong>„Klara Feldhoff Traum Park“</strong> wirst du in Zukunft bis zu vier Wochen kostenfrei Hilfe erhalten.
+							</p>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="container" data-animated="fadeInUp">
+
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: -2em; text-align: center;">
+							<img src="images/park.jpg" alt="" />
+						</div>
+					</div>
+
+				</div>
+				<div class="container" data-animated="fadeInUp">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 padbot30">
+							<p>
+								Wir können nicht Therapieren - aber wir möchten dich auffangen und dir helfen, die Welt wieder richtig zu drehen und Perspektiven schaffen.
+							</p>
+							<p>
+								Wir werden dich zu Ärzten und Therapeuten begleiten. Wir möchten dir helfen, einen ambulanten Therapeuten zu finden, und stellen gemeinsam mit dir die notwendigen Anträge für Heil- &amp; Behandlungskosten.
+							</p>
+							<p>
+								Unsere Vision ist der <strong>„Klara Feldhoff Traum Park“</strong>.
+							</p>
+							<p>
+								Hier sollen in Zukunft Betroffene eine Wohlfühlzone und Begleitung beim Ausbruch eines komplexen Trauma finden. Der Begriff „komplexes Trauma“ ist wichtig für die Diagnose beim Arzt.
+							</p>
+							<h3>Sie möchten spenden?</h3>
+							<p>
+								Tour41 e.V. ist ein gemeinnütziger Verein und Spenden an uns sind steuerlich absetzbar.
+							</p>
+							<p>
+								<strong>Spendenkonto für einmalige Zuwendungen oder Spenden per Dauerauftrag:</strong><br/>
+								Tour41 e.V.<br/>
+								Volksbank Berg eG<br/>
+								IBAN: DE74 3706 9125 0017 3350 14<br/>
+								BIC: GENODED1RKO
+							</p>
+							<p>
+								<strong>Spenden per PayPal:</strong>
+								<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+									<div class="paypal-donations">
+										<input type="hidden" name="cmd" value="_donations" />
+										<input type="hidden" name="bn" value="TipsandTricks_SP" />
+										<input type="hidden" name="business" value="spenden@tour41.net" />
+										<input type="hidden" name="return" value="https://tour41.net/vielen-dank-fuer-ihre-spende/" />
+										<input type="hidden" name="item_name" value="Spende an Tour 41 e.V." />
+										<input type="hidden" name="rm" value="0" />
+										<input type="hidden" name="currency_code" value="EUR" />
+										<input type="hidden" name="lc" value="DE" />
+										<input type="image" style="cursor: pointer;" src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online." />
+										<img alt="" src="https://i1.wp.com/www.paypal.com/en_US/i/scr/pixel.gif?resize=1%2C1&#038;ssl=1" width="1" height="1" data-recalc-dims="1" />
+									</div>
+								</form>
+							</p>
+						</div>
+					</div>
+
+					-->
+
+				</div>
+
+			</div>
+		</section><!-- //HOME -->
+
+
+
+
+	</div><!-- //PAGE -->
+
+	<!-- CONTACTS -->
+	<section id="contacts">
+	</section><!-- //CONTACTS -->
+
+	<!-- FOOTER -->
+	<footer>
+
+		<!-- CONTAINER -->
+		<div class="container">
+
+			<!-- ROW -->
+			<div class="row" data-appear-top-offset="-200" data-animated="fadeInUp">
+
+				<!--<div class="col-lg-4 col-md-4 col-sm-hidden padbot30">
+				</div>-->
+
+				<div class="col-lg-12 col-md-12 col-sm-12 padbot30 foot_about_block">
+					<h4>Über <strong>uns</strong></h4>
+					<p>Wir sind ein gemeinnütziger Verein mit den Zielen, die Verjährungsfrist bei Sexualstraftaten abzuschaffen und Betroffenen zu helfen.</p>
+					<p>Diese Seite wird betrieben von Tour41 e.V., das zugehörige Impressum finden Sie <a href="https://tour41.net/impressum/" ><u>hier</u></a>.</p>
+					<p>Sie finden uns auch in den sozialen Medien: </p>
+					<ul class="social">
+						<!--<li><a href="http://fb.me/Tour41" ><i class="fa fa-twitter"></i></a></li>-->
+						<li><a href="https://tour41.net" target="_blank"><i class="fas fa-home"></i></a></li>
+						<li><a href="https://fb.me/Tour41" target="_blank"><i class="fab fa-facebook"></i></a></li>
+						<li><a href="https://www.instagram.com/tour41e.v/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+						<li><a href="https://change.org/kindesmissbrauch" target="_blank"><i class="fas fa-file-signature"></i></a></li>
+						<!--<li><a href="javascript:void(0);" ><i class="map_show fa fa-map-marker"></i></a></li>-->
+					</ul>
+				</div>
+
+				<!--<div class="respond_clear"></div>-->
+
+				<!--<div class="col-lg-4 col-md-4 col-sm-hidden padbot30">
+				</div>-->
+			</div><!-- //ROW -->
+		</div><!-- //CONTAINER -->
+	</footer><!-- //FOOTER -->
+
+</div>
+
+<script>
+$('.toast').toast('show');
+
+var host = "https://tour41.net/wp-json/wp/v2"
+var category_id = 47
+var per_page = 20
+var images_to_be_shown = []
+var animation_in_progress = false
+
+get_and_add_images(category_id)
+
+function process_images_to_be_shown() {
+	if (animation_in_progress) {
+		return;
+	} else {
+		animation_in_progress = true
+		work_queue()
+	}
+}
+
+function work_queue() {
+	image = images_to_be_shown.shift()
+	image.find('img').fadeIn('fast', function() {
+		if (images_to_be_shown.length <= 0) {
+			animation_in_progress = false
+			return
+		} else {
+			work_queue()
+		}
+	})
+}
+
+function get_and_add_images(category_id) {
+	get_images(category_id, 1, images => {
+		img_grid = jQuery('#img_grid')
+		images.forEach(image => {
+			let candidate = add_image_to_grid(img_grid, image)
+			if (candidate)
+				images_to_be_shown.push(candidate)
+		})
+		//console.log($(img_grid).children().length);
+		
+		jQuery('a.gallery').featherlightGallery({
+			previousIcon: '«',
+			nextIcon: '»',
+		})
+
+		process_images_to_be_shown()
+	})
+}
+
+function add_image_to_grid(grid, image) {
+	if (!image) {
+		console.error(image)
+		return null;
+	}
+
+	if (!image.media_details || !image.media_details.sizes || !image.media_details.sizes.medium || !image.media_details.sizes.medium.source_url) {
+		image.media_details = {
+			sizes: {
+				medium: {
+					source_url: image.source_url
+				}
+			}
+		};
+		image.media_details.sizes.full = image.media_details.sizes.medium;
+	}
+
+	var caption = html_encode(image.caption.rendered.replace(/<[^>]*>?/gm, '').replace(/\r?\n|\r/g, ''))
+	var id = image.id
+	var medium_image = image.media_details.sizes.medium.source_url
+	var large_image = image.media_details.sizes.full.source_url
+	var date = image.date
+	if (date) {
+		var _date = date.split('T')[0];
+		_date = _date.split('-');
+		date = _date[2] + '.' + _date[1] + '.' + _date[0];
+	}
+
+	var before_html = '<div class="col-lg-4 col-md-6 col-sm-12 padbot30">'
+	var link_html = '<a class="gallery" id="imglink_' + id + '" href="' + large_image + '" data-featherlight="image">'
+	var img_html = '<img style="display: none" class="img-fluid jaichbin" alt="' + caption + '" src="' + medium_image + '" />'
+	var after_html = '</a><p class="text-right text-muted"><small>' + date + '</small></p></div>'
+
+	var obj = jQuery(before_html + link_html + img_html + after_html)
+	obj.appendTo(img_grid)
+	return obj
+}
+
+function get_images(category_id, page, callback) {
+	var request = new XMLHttpRequest()
+	request.open('GET', host + '/media?categories=' + category_id + '&page=' + page + '&per_page=' + per_page, true)
+	request.onload = function () {
+		if (request.status >= 200 && request.status < 400) {
+			total_pages = this.getResponseHeader('X-WP-TotalPages')
+
+			var data = JSON.parse(this.response)
+			callback(data)
+
+			if (total_pages != null && parseInt(total_pages) != NaN && parseInt(total_pages) > page) {
+				get_images(category_id, page + 1, callback)
+			} 
+		} else {
+			console.error(this.response)
+		}
+	}
+
+	request.send()
+}
+
+function html_encode(value){
+	"use strict";
+	return jQuery('<div/>').text(value).html();
+}
+
+</script>
+
+</body>
+</html>
