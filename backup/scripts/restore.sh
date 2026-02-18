@@ -41,13 +41,33 @@ error() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: $*" >&2
 }
 
+require_env() {
+    local name="$1"
+    local val="${!name-}"
+    if [ -z "$val" ]; then
+        error "Missing required environment variable: $name"
+        return 1
+    fi
+}
+
+validate_config() {
+    require_env OCI_S3_ENDPOINT
+    require_env OCI_BUCKET_NAME
+    require_env AWS_ACCESS_KEY_ID
+    require_env AWS_SECRET_ACCESS_KEY
+    require_env RESTIC_PASSWORD
+}
+
 list_snapshots() {
+    validate_config
     log "Available snapshots for $BACKUP_NAME:"
     restic snapshots --host "$BACKUP_NAME" --compact
 }
 
 restore_snapshot() {
     local snapshot_id="$1"
+
+    validate_config
     
     log "==> Starting restore from snapshot: $snapshot_id"
     log "Repository: $RESTIC_REPOSITORY"

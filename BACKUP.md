@@ -301,6 +301,33 @@ Visit your site and verify everything works.
 
 ## Troubleshooting
 
+### Backup "hangs" at "Checking restic repository..."
+
+**Most common cause**: `RESTIC_PASSWORD` (or OCI/AWS credentials) are missing or empty in the running `backup` container.
+
+In older versions of the script, restic could fall back to an **interactive password prompt** during the initial repository check, but the prompt output was discarded, making it look like it was stuck.
+
+**Fix**:
+1. Ensure these variables are set in `.env` (non-empty):
+   - `OCI_S3_ENDPOINT`
+   - `OCI_BUCKET_NAME`
+   - `AWS_ACCESS_KEY_ID`
+   - `AWS_SECRET_ACCESS_KEY`
+   - `RESTIC_PASSWORD`
+2. Recreate the backup container so it picks up the new environment:
+   ```bash
+   docker compose up -d --force-recreate backup
+   ```
+3. Run a manual backup again:
+   ```bash
+   docker compose exec -T backup /backup/scripts/backup.sh
+   ```
+
+Optional: you can tune the initial repository probe timeout (seconds):
+```bash
+RESTIC_PROBE_TIMEOUT_SECONDS=30
+```
+
 ### "repository does not exist" error
 
 **Solution**: Initialize the repository first:

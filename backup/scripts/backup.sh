@@ -19,6 +19,10 @@ BACKUP_NAME="${BACKUP_NAME:-tour41.net}"
 TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
 TEMP_DIR="/backup/temp/${TIMESTAMP}"
 
+# Timeout (seconds) for the initial repository probe (avoids indefinite hangs
+# on DNS/network issues or interactive password prompts).
+RESTIC_PROBE_TIMEOUT_SECONDS="${RESTIC_PROBE_TIMEOUT_SECONDS:-30}"
+
 # Restic repository (OCI S3-compatible endpoint)
 RESTIC_REPOSITORY="${RESTIC_REPOSITORY:-s3:${OCI_S3_ENDPOINT}/${OCI_BUCKET_NAME}}"
 export RESTIC_REPOSITORY
@@ -48,6 +52,27 @@ error() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: $*" >&2
 }
 
+# Fail fast (and loudly) when required configuration is missing.
+require_env() {
+    local name="$1"
+    # Indirect expansion; default to empty string.
+    local val="${!name-}"
+    if [ -z "$val" ]; then
+        error "Missing required environment variable: $name"
+        return 1
+    fi
+}
+
+run_with_timeout() {
+    local seconds="$1"
+    shift
+    if command -v timeout >/dev/null 2>&1; then
+        timeout "$seconds" "$@"
+    else
+        "$@"
+    fi
+}
+
 cleanup() {
     if [ -d "$TEMP_DIR" ]; then
         log "Cleaning up temporary directory..."
@@ -59,6 +84,14 @@ cleanup() {
 main() {
     log "==> Starting backup: $BACKUP_NAME"
     log "Repository: $RESTIC_REPOSITORY"
+
+    # ── Validate required config early ───────────────────────────────────
+    require_env OCI_S3_ENDPOINT
+    require_env OCI_BUCKET_NAME
+    require_env AWS_ACCESS_KEY_ID
+    require_env AWS_SECRET_ACCESS_KEY
+    require_env RESTIC_PASSWORD
+    require_env MYSQL_PASSWORD
     
     # Create temp directory
     mkdir -p "$TEMP_DIR"
@@ -66,9 +99,26 @@ main() {
     
     # ── Initialize restic repository if needed ────────────────────────────
     log "Checking restic repository..."
-    if ! restic snapshots >/dev/null 2>&1; then
-        log "Initializing new restic repository..."
-        restic init
+    # Don't discard stderr here: if RESTIC_PASSWORD is missing/empty, restic
+    # will prompt interactively and appear to "hang". We prefer a clear error.
+    restic_probe_output=""
+    if ! restic_probe_output="$(run_with_timeout "$RESTIC_PROBE_TIMEOUT_SECONDS" restic snapshots 2>&1)"; then
+        # If the probe timed out, provide actionable guidance.
+        if echo "$restic_probe_output" | grep -qi "timeout"; then
+            error "Restic repository probe timed out after ${RESTIC_PROBE_TIMEOUT_SECONDS}s"
+            error "Check network/DNS reachability to OCI and verify OCI_S3_ENDPOINT"
+            exit 1
+        fi
+
+        # Initialize only when the repo truly does not exist.
+        if echo "$restic_probe_output" | grep -qi "Is there a repository at"; then
+            log "Initializing new restic repository..."
+            restic init
+        else
+            error "Restic repository check failed:"
+            echo "$restic_probe_output" >&2
+            exit 1
+        fi
     fi
     
     # ── Database backup ───────────────────────────────────────────────────

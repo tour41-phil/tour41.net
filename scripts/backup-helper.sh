@@ -50,27 +50,27 @@ check_service() {
 case "${1:-help}" in
     run)
         echo "Running backup now..."
-        docker compose exec backup /backup/scripts/backup.sh
+        docker compose exec -T backup /backup/scripts/backup.sh
         ;;
     
     init)
         echo "Initializing restic repository..."
-        docker compose exec backup /backup/scripts/backup.sh --init-only
+        docker compose exec -T backup /backup/scripts/backup.sh --init-only
         ;;
     
     list)
         check_service
         echo "Available snapshots:"
-        docker compose exec backup restic snapshots
+        docker compose exec -T backup restic snapshots
         ;;
     
     status)
         check_service
         echo "Repository statistics:"
-        docker compose exec backup restic stats
+        docker compose exec -T backup restic stats
         echo ""
         echo "Latest snapshots:"
-        docker compose exec backup restic snapshots --latest 5
+        docker compose exec -T backup restic snapshots --latest 5
         ;;
     
     restore)
@@ -80,18 +80,18 @@ case "${1:-help}" in
     
     restore-latest)
         check_service
-        docker compose exec backup /backup/scripts/restore.sh latest
+        docker compose exec -T backup /backup/scripts/restore.sh latest
         ;;
     
     check)
         check_service
         echo "Checking repository integrity..."
-        docker compose exec backup restic check --read-data-subset=10%
+        docker compose exec -T backup restic check --read-data-subset=10%
         ;;
     
     stats)
         check_service
-        docker compose exec backup restic stats
+        docker compose exec -T backup restic stats
         ;;
     
     logs)
