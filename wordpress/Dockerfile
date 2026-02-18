@@ -6,10 +6,11 @@
 FROM wordpress:6.9.1-php8.4-fpm
 
 # Tools needed to unpack theme/plugin zip archives at build time + Redis PHP
-# extension (required by object-cache drop-in) + GZip runtime (for GEOIP) + image revision marker.
+# extension (required by object-cache drop-in) + GZip runtime (for GEOIP) + MariaDB
+# client (for database import/export) + image revision marker.
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y --no-install-recommends unzip zlib1g; \
+    apt-get install -y --no-install-recommends unzip zlib1g mariadb-client; \
     rm -rf /var/lib/apt/lists/*; \
     pecl install redis; \
     docker-php-ext-enable redis; \

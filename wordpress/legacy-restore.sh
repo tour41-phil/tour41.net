@@ -142,22 +142,39 @@ if [ -n "$DB_ZIP" ] || [ -n "$DB_GZ" ] || [ -n "$DB_SQL" ]; then
       mysql_args+=("-p${DB_PASS}")
     fi
 
-    zcat "$DB_GZ" | mysql "${mysql_args[@]}" "$DB_NAME" || error "Database import failed"
+    # Use mysql client (works with both MySQL and MariaDB)
+    if command -v mysql &>/dev/null; then
+      zcat "$DB_GZ" | mysql "${mysql_args[@]}" "$DB_NAME" || error "Database import failed"
+    else
+      error "mysql client not found. Please ensure mariadb-client is installed."
+    fi
     log "Database import complete."
   elif [ -f "$DB_SQL" ]; then
     log "Importing database from SQL file: $(basename "$DB_SQL")"
     
-    # Build mysql connection args
-    mysql_args=()
-    if [ -n "${DB_HOST:-}" ]; then
-      mysql_args+=("-h" "$DB_HOST")
-    fi
-    mysql_args+=("-u" "$DB_USER")
-    if [ -n "${DB_PASS:-}" ]; then
-      mysql_args+=("-p${DB_PASS}")
-    fi
+    # Try using WP-CLI first (better error handling), fall back to mysql
+    if command -v wp &>/dev/null; then
+      log "Using WP-CLI for database import..."
+      (
+        cd "$WP_PATH"
+        wp db import "$DB_SQL" --allow-root || error "WP-CLI database import failed"
+      )
+    elif command -v mysql &>/dev/null; then
+      log "Using mysql client for database import..."
+      # Build mysql connection args
+      mysql_args=()
+      if [ -n "${DB_HOST:-}" ]; then
+        mysql_args+=("-h" "$DB_HOST")
+      fi
+      mysql_args+=("-u" "$DB_USER")
+      if [ -n "${DB_PASS:-}" ]; then
+        mysql_args+=("-p${DB_PASS}")
+      fi
 
-    cat "$DB_SQL" | mysql "${mysql_args[@]}" "$DB_NAME" || error "Database import failed"
+      cat "$DB_SQL" | mysql "${mysql_args[@]}" "$DB_NAME" || error "Database import failed"
+    else
+      error "Neither WP-CLI nor mysql client found. Please ensure one of them is installed."
+    fi
     log "Database import complete."
   else
     error "Database backup found but could not locate importable file (checked for .gz and plain SQL)"
