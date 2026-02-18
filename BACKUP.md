@@ -84,8 +84,8 @@ openssl rand -base64 32
 ### 5. Deploy the Backup Service
 
 ```bash
-# Build the backup container
-docker compose build backup
+# Pull the pre-built backup image from GHCR
+docker compose pull backup
 
 # Start the backup service
 docker compose up -d backup
@@ -93,6 +93,9 @@ docker compose up -d backup
 # Check logs
 docker compose logs -f backup
 ```
+
+> If you're developing the backup image locally, you can still build it with:
+> `docker compose build backup`
 
 ## Usage
 
@@ -458,6 +461,7 @@ A convenience script is provided for common operations:
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
+| `BACKUP_IMAGE` | No | `ghcr.io/tour41-phil/tour41.net-backup:latest` | Override the backup image tag (e.g. pin to `sha-...`) |
 | `OCI_S3_ENDPOINT` | Yes | - | OCI S3-compatible endpoint URL |
 | `OCI_BUCKET_NAME` | Yes | - | OCI bucket name for backups |
 | `AWS_ACCESS_KEY_ID` | Yes | - | OCI Customer Secret Key (access key) |

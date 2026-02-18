@@ -94,6 +94,7 @@ services:
 
   # ── Backup (restic + supercronic) ───────────────────────────────────────
   backup:
+    image: ${BACKUP_IMAGE:-ghcr.io/tour41-phil/tour41.net-backup:latest}
     build:
       context: ./backup
       dockerfile: Dockerfile

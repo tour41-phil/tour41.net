@@ -9,6 +9,7 @@ Production-ready Docker Compose stack for **tour41.net** running behind
 | nginx     | `nginx:1.27.4-alpine`                           | HTTP server → php-fpm       |
 | mariadb   | `mariadb:11.7.2`                                | Database                    |
 | redis     | `redis:7.4.2-alpine`                            | Object cache                |
+| backup    | `ghcr.io/tour41-phil/tour41.net-backup:latest` (custom) | Restic + scheduled backups  |
 
 ## Repository layout
 
@@ -25,7 +26,8 @@ Production-ready Docker Compose stack for **tour41.net** running behind
 ├── scripts/
 │   └── backup.sh             # Database backup script
 └── .github/workflows/
-    └── build.yml             # CI – build & push image to GHCR
+   ├── build.yml             # CI – build & push WordPress image to GHCR
+   └── build-backup.yml      # CI – build & push backup image to GHCR
 ```
 
 ## Quick start
