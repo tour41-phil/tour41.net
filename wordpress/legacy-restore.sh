@@ -55,23 +55,19 @@ fi
 # --- DATABASE CREDENTIALS LOGIC ---
 get_db_config() {
   local var_name=$1
-  local config_key=$2
+  local wp_var_name=$2
+  local config_key=$3
 
-  # If environment variable is set, use it
-  if [ -n "${!var_name:-}" ]; then
-    echo "${!var_name}"
+  # First, try WordPress environment variables (WORDPRESS_DB_*)
+  if [ -n "${!wp_var_name:-}" ]; then
+    echo "${!wp_var_name}"
     return 0
   fi
 
-  # Try to extract from wp-config.php using proper PHP parsing
-  if [ -f "$WP_PATH/wp-config.php" ]; then
-    local value
-    # Look for lines like: define('DB_NAME', 'wordpress');
-    value=$(grep -oP "define\s*\(\s*['\"]$config_key['\"]\s*,\s*['\"]?\K[^'\"]+(?=['\"])" "$WP_PATH/wp-config.php" | head -n1 || true)
-    if [ -n "$value" ]; then
-      echo "$value"
-      return 0
-    fi
+  # Then try generic environment variables
+  if [ -n "${!var_name:-}" ]; then
+    echo "${!var_name}"
+    return 0
   fi
 
   return 1
@@ -79,28 +75,33 @@ get_db_config() {
 
 log "Detecting database credentials..."
 
-DB_NAME=$(get_db_config "DB_NAME" "DB_NAME" || true)
-DB_USER=$(get_db_config "DB_USER" "DB_USER" || true)
-DB_PASS=$(get_db_config "DB_PASSWORD" "DB_PASSWORD" || true)
-DB_HOST=$(get_db_config "DB_HOST" "DB_HOST" || true)
+# Try WordPress standard environment variables first, then generic ones
+DB_NAME=$(get_db_config "DB_NAME" "WORDPRESS_DB_NAME" "DB_NAME" || true)
+DB_USER=$(get_db_config "DB_USER" "WORDPRESS_DB_USER" "DB_USER" || true)
+DB_PASS=$(get_db_config "DB_PASSWORD" "WORDPRESS_DB_PASSWORD" "DB_PASSWORD" || true)
+DB_HOST=$(get_db_config "DB_HOST" "WORDPRESS_DB_HOST" "DB_HOST" || true)
+
+# Default DB_HOST if not set
+DB_HOST="${DB_HOST:-db}"
 
 if [ -z "$DB_NAME" ] || [ -z "$DB_USER" ]; then
-  error "Could not determine database credentials from environment or wp-config.php"
+  error "Could not determine database credentials from environment variables"
 fi
 
-log "Using database: $DB_NAME@$DB_HOST"
+log "Using database: $DB_NAME @ $DB_HOST (user: $DB_USER)"
 
 # --- 1. DATABASE RESTORATION (OPTIONAL) ---
 log "-----------------------------------"
 log "Checking for database backups..."
 
-# Look for database files in various UpdraftPlus formats:
-# - backup_*_db (no extension, plain SQL dump)
-# - backup_*_db.gz (gzip compressed)
-# - backup_*_db.zip (zip archive)
-DB_ZIP=$(ls "$BACKUP_PATH"/backup_*_db.zip 2>/dev/null | head -n 1 || true)
-DB_GZ=$(ls "$BACKUP_PATH"/backup_*_db.gz 2>/dev/null | head -n 1 || true)
-DB_SQL=$(ls "$BACKUP_PATH"/backup_*_db 2>/dev/null | grep -v '\.' | head -n 1 || true)
+# Use find for reliable file detection (more reliable than ls globs)
+DB_ZIP=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_db.zip" | head -n 1 || true)
+DB_GZ=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_db.gz" | head -n 1 || true)
+DB_SQL=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_db" ! -name "*.*" | head -n 1 || true)
+
+log "DEBUG: Found DB_ZIP=$DB_ZIP"
+log "DEBUG: Found DB_GZ=$DB_GZ"
+log "DEBUG: Found DB_SQL=$DB_SQL"
 
 if [ -n "$DB_ZIP" ] || [ -n "$DB_GZ" ] || [ -n "$DB_SQL" ]; then
   log "Database backup found. Starting restoration..."
@@ -110,9 +111,9 @@ if [ -n "$DB_ZIP" ] || [ -n "$DB_GZ" ] || [ -n "$DB_SQL" ]; then
     log "Unzipping database archive: $(basename "$DB_ZIP")"
     unzip -o "$DB_ZIP" -d "$BACKUP_PATH"
     # Re-check for .gz or plain SQL after unzip
-    DB_GZ=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "*.gz" 2>/dev/null | head -n 1 || true)
+    DB_GZ=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "*.gz" | head -n 1 || true)
     if [ -z "$DB_GZ" ]; then
-      DB_SQL=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_db" 2>/dev/null | grep -v '\.' | head -n 1 || true)
+      DB_SQL=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_db" ! -name "*.*" | head -n 1 || true)
     fi
   fi
 
@@ -158,7 +159,9 @@ fi
 log "-----------------------------------"
 log "Checking for uploads backups..."
 
-UPLOADS_ZIPS=$(ls "$BACKUP_PATH"/backup_*_uploads*.zip 2>/dev/null || true)
+UPLOADS_ZIPS=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_uploads*.zip" | sort)
+
+log "DEBUG: Found uploads files: $UPLOADS_ZIPS"
 
 if [ -n "$UPLOADS_ZIPS" ]; then
   log "Uploads backup(s) found. Starting extraction..."
@@ -213,20 +216,21 @@ fi
 
 log "Setting ownership to $WEB_USER..."
 
-# Fix uploads directory ownership and permissions
+# Fix uploads directory ownership and permissions (limit depth to avoid hanging on large dirs)
 if [ -d "$WP_PATH/wp-content/uploads" ]; then
-  chown -R "$WEB_USER:$WEB_USER" "$WP_PATH/wp-content/uploads"
-  find "$WP_PATH/wp-content/uploads" -type d -exec chmod 755 {} \;
-  find "$WP_PATH/wp-content/uploads" -type f -exec chmod 644 {} \;
+  chown -R "$WEB_USER:$WEB_USER" "$WP_PATH/wp-content/uploads" || true
+  find "$WP_PATH/wp-content/uploads" -maxdepth 5 -type d -exec chmod 755 {} \; 2>/dev/null || true
+  find "$WP_PATH/wp-content/uploads" -maxdepth 5 -type f -exec chmod 644 {} \; 2>/dev/null || true
   log "Uploads directory permissions fixed."
 fi
 
 # Fix wp-content ownership (be careful not to break plugins/themes)
 if [ -d "$WP_PATH/wp-content" ]; then
-  chown -R "$WEB_USER:$WEB_USER" "$WP_PATH/wp-content"
-  find "$WP_PATH/wp-content" -type d -exec chmod 755 {} \;
-  find "$WP_PATH/wp-content" -type f -exec chmod 644 {} \;
+  chown -R "$WEB_USER:$WEB_USER" "$WP_PATH/wp-content" || true
+  find "$WP_PATH/wp-content" -maxdepth 3 -type d -exec chmod 755 {} \; 2>/dev/null || true
+  find "$WP_PATH/wp-content" -maxdepth 3 -type f -exec chmod 644 {} \; 2>/dev/null || true
 fi
 
 log "-----------------------------------"
 log "Restore complete!"
+exit 0
