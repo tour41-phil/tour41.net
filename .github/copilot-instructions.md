@@ -71,7 +71,7 @@ Internet → Traefik (TLS termination) → Nginx (port 80) → WordPress (php-fp
 
 #### Build the Custom WordPress Image
 ```bash
-cd /home/runner/work/tour41.net/tour41.net/wordpress
+cd wordpress
 docker build -t test-tour41-wp:local .
 ```
 
@@ -290,6 +290,8 @@ Required in `.env` (never commit this file):
 DOMAIN=tour41.net
 
 # Database credentials (CHANGE THESE!)
+# These MYSQL_* variables are used by both MariaDB service and mapped
+# to WORDPRESS_DB_* variables for the WordPress container
 MYSQL_ROOT_PASSWORD=strong_random_password
 MYSQL_DATABASE=wordpress
 MYSQL_USER=wordpress
