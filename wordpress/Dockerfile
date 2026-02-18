@@ -117,14 +117,15 @@ RUN set -eux; \
 # seeds files on first run. This ensures core + baked-in plugins/themes are
 # refreshed after an image update without deleting user-installed additions.
 COPY tour41-entrypoint.sh /usr/local/bin/tour41-entrypoint.sh
-RUN chmod +x /usr/local/bin/tour41-entrypoint.sh
+COPY fs-method-entrypoint.sh /usr/local/bin/fs-method-entrypoint.sh
+RUN chmod +x /usr/local/bin/tour41-entrypoint.sh /usr/local/bin/fs-method-entrypoint.sh
 
 # Legacy backup restoration script for UpdraftPlus backups
 # Allows importing database and uploads from UpdraftPlus archives
 COPY legacy-restore.sh /usr/local/bin/legacy-restore.sh
 RUN chmod +x /usr/local/bin/legacy-restore.sh
 
-ENTRYPOINT ["tour41-entrypoint.sh"]
+ENTRYPOINT ["fs-method-entrypoint.sh", "tour41-entrypoint.sh"]
 
 # Be explicit: run php-fpm by default.
 CMD ["php-fpm"]
