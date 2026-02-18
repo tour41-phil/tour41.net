@@ -63,10 +63,11 @@ get_db_config() {
     return 0
   fi
 
-  # Try to extract from wp-config.php
+  # Try to extract from wp-config.php using proper PHP parsing
   if [ -f "$WP_PATH/wp-config.php" ]; then
     local value
-    value=$(grep "define.*$config_key" "$WP_PATH/wp-config.php" | head -n1 | cut -d\' -f4 || true)
+    # Look for lines like: define('DB_NAME', 'wordpress');
+    value=$(grep -oP "define\s*\(\s*['\"]$config_key['\"]\s*,\s*['\"]?\K[^'\"]+(?=['\"])" "$WP_PATH/wp-config.php" | head -n1 || true)
     if [ -n "$value" ]; then
       echo "$value"
       return 0
@@ -93,25 +94,34 @@ log "Using database: $DB_NAME@$DB_HOST"
 log "-----------------------------------"
 log "Checking for database backups..."
 
+# Look for database files in various UpdraftPlus formats:
+# - backup_*_db (no extension, plain SQL dump)
+# - backup_*_db.gz (gzip compressed)
+# - backup_*_db.zip (zip archive)
 DB_ZIP=$(ls "$BACKUP_PATH"/backup_*_db.zip 2>/dev/null | head -n 1 || true)
 DB_GZ=$(ls "$BACKUP_PATH"/backup_*_db.gz 2>/dev/null | head -n 1 || true)
+DB_SQL=$(ls "$BACKUP_PATH"/backup_*_db 2>/dev/null | grep -v '\.' | head -n 1 || true)
 
-if [ -n "$DB_ZIP" ] || [ -n "$DB_GZ" ]; then
+if [ -n "$DB_ZIP" ] || [ -n "$DB_GZ" ] || [ -n "$DB_SQL" ]; then
   log "Database backup found. Starting restoration..."
 
   # If we have a ZIP, unzip it first
   if [ -f "$DB_ZIP" ]; then
     log "Unzipping database archive: $(basename "$DB_ZIP")"
     unzip -o "$DB_ZIP" -d "$BACKUP_PATH"
-    DB_GZ=$(ls "$BACKUP_PATH"/backup_*_db.gz 2>/dev/null | head -n 1 || true)
+    # Re-check for .gz or plain SQL after unzip
+    DB_GZ=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "*.gz" 2>/dev/null | head -n 1 || true)
+    if [ -z "$DB_GZ" ]; then
+      DB_SQL=$(find "$BACKUP_PATH" -maxdepth 1 -type f -name "backup_*_db" 2>/dev/null | grep -v '\.' | head -n 1 || true)
+    fi
   fi
 
-  # Import the GZ file
+  # Import the database file (plain SQL, gzipped, or other format)
   if [ -f "$DB_GZ" ]; then
-    log "Importing database: $(basename "$DB_GZ")"
+    log "Importing database from gzipped file: $(basename "$DB_GZ")"
     
     # Build mysql connection args
-    local mysql_args=()
+    mysql_args=()
     if [ -n "${DB_HOST:-}" ]; then
       mysql_args+=("-h" "$DB_HOST")
     fi
@@ -122,8 +132,23 @@ if [ -n "$DB_ZIP" ] || [ -n "$DB_GZ" ]; then
 
     zcat "$DB_GZ" | mysql "${mysql_args[@]}" "$DB_NAME" || error "Database import failed"
     log "Database import complete."
+  elif [ -f "$DB_SQL" ]; then
+    log "Importing database from SQL file: $(basename "$DB_SQL")"
+    
+    # Build mysql connection args
+    mysql_args=()
+    if [ -n "${DB_HOST:-}" ]; then
+      mysql_args+=("-h" "$DB_HOST")
+    fi
+    mysql_args+=("-u" "$DB_USER")
+    if [ -n "${DB_PASS:-}" ]; then
+      mysql_args+=("-p${DB_PASS}")
+    fi
+
+    cat "$DB_SQL" | mysql "${mysql_args[@]}" "$DB_NAME" || error "Database import failed"
+    log "Database import complete."
   else
-    error "Database backup found but no .gz file created after extraction"
+    error "Database backup found but could not locate importable file (checked for .gz and plain SQL)"
   fi
 else
   log "No database backup files found. Skipping DB restoration."
