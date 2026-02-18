@@ -92,6 +92,52 @@ services:
       # Service port
       - "traefik.http.services.tour41.loadbalancer.server.port=80"
 
+  # ── Backup (restic + supercronic) ───────────────────────────────────────
+  backup:
+    build:
+      context: ./backup
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      wordpress:
+        condition: service_started
+    environment:
+      # Backup configuration
+      BACKUP_NAME: ${DOMAIN:-tour41.net}
+      BACKUP_CRON: ${BACKUP_CRON:-30 3 * * *}
+      RUN_ON_STARTUP: ${BACKUP_RUN_ON_STARTUP:-false}
+      
+      # OCI Object Storage (S3-compatible)
+      OCI_S3_ENDPOINT: ${OCI_S3_ENDPOINT}
+      OCI_BUCKET_NAME: ${OCI_BUCKET_NAME}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      
+      # Restic configuration
+      RESTIC_PASSWORD: ${RESTIC_PASSWORD}
+      RESTIC_KEEP_DAILY: ${RESTIC_KEEP_DAILY:-7}
+      RESTIC_KEEP_WEEKLY: ${RESTIC_KEEP_WEEKLY:-4}
+      RESTIC_KEEP_MONTHLY: ${RESTIC_KEEP_MONTHLY:-6}
+      
+      # Database credentials
+      DB_HOST: mariadb
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-wordpress}
+      MYSQL_USER: ${MYSQL_USER:-wordpress}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      
+      # Domain for metadata
+      DOMAIN: ${DOMAIN:-tour41.net}
+    volumes:
+      # Mount volumes for backup
+      - wp_data:/wp_data:ro
+      - db_data:/db_data:ro
+      # Mount git repo for metadata (optional)
+      - ./.git:/repo/.git:ro
+    networks:
+      - backend
+
 # ── Volumes ───────────────────────────────────────────────────────────────
 volumes:
   db_data:
