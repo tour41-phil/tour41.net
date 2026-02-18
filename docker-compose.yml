@@ -99,6 +99,26 @@ services:
       # Service port
       - "traefik.http.services.tour41.loadbalancer.server.port=80"
 
+  # ── Nginx (weilwirsovielesind static site) ─────────────────────────────
+  weilwirsovielesind-nginx:
+    image: nginx:1.27.4-alpine
+    restart: unless-stopped
+    volumes:
+      - ./nginx/weilwirsovielesind.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./weilwirsovielesind:/var/www/html:ro
+    networks:
+      - homelab_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=homelab_network"
+      # HTTP router for weilwirsovielesind.de
+      - "traefik.http.routers.weilwirsovielesind.rule=Host(`${WEILWIRSOVIELESIND_DOMAIN:-weilwirsovielesind.de}`) || Host(`www.${WEILWIRSOVIELESIND_DOMAIN:-weilwirsovielesind.de}`)"
+      - "traefik.http.routers.weilwirsovielesind.entrypoints=websecure"
+      - "traefik.http.routers.weilwirsovielesind.tls=true"
+      - "traefik.http.routers.weilwirsovielesind.tls.certresolver=${CERT_RESOLVER:-letsencrypt}"
+      # Service port
+      - "traefik.http.services.weilwirsovielesind.loadbalancer.server.port=80"
+
   # ── Backup (restic + supercronic) ───────────────────────────────────────
   backup:
     image: ${BACKUP_IMAGE:-ghcr.io/tour41-phil/tour41.net-backup:latest}
