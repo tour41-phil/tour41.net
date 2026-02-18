@@ -175,5 +175,14 @@ maybe_sync_on_image_update() {
 
 maybe_sync_on_image_update
 
-# Hand off to the official WordPress entrypoint (config generation, etc.)
-exec docker-entrypoint.sh "$@"
+# Hand off to the official WordPress entrypoint (config generation, etc.).
+#
+# Some runtimes/compose configurations can end up invoking the ENTRYPOINT
+# without passing the image CMD, which would cause the upstream entrypoint to
+# exit cleanly (code 0) and the container to restart-loop. Make the default
+# explicit.
+if [ "$#" -eq 0 ]; then
+  set -- php-fpm
+fi
+
+exec /usr/local/bin/docker-entrypoint.sh "$@"

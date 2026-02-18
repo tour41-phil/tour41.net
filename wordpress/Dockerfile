@@ -5,20 +5,15 @@
 # rebuild through CI when upgrading WordPress.
 FROM wordpress:6.9.1-php8.4-fpm
 
-# Tools needed to unpack theme/plugin zip archives at build time.
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        unzip \
-    && rm -rf /var/lib/apt/lists/*
-
-# ── Redis PHP extension (required by object-cache drop-in) ────────────────
-RUN pecl install redis \
-    && docker-php-ext-enable redis
-
-# Unique build marker used by the entrypoint to detect image updates.
-# This changes on every image build, ensuring baked-in assets can be
-# refreshed into persistent volumes after an upgrade.
-RUN date -u +%Y-%m-%dT%H:%M:%SZ > /usr/src/wordpress/.tour41-baked-revision
+# Tools needed to unpack theme/plugin zip archives at build time + Redis PHP
+# extension (required by object-cache drop-in) + image revision marker.
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends unzip; \
+    rm -rf /var/lib/apt/lists/*; \
+    pecl install redis; \
+    docker-php-ext-enable redis; \
+    date -u +%Y-%m-%dT%H:%M:%SZ > /usr/src/wordpress/.tour41-baked-revision
 
 # ── Custom theme ──────────────────────────────────────────────────────────
 # Supports either directories OR .zip archives under wordpress/themes/.
@@ -60,8 +55,14 @@ RUN set -eux; \
                         unzip -q "$item" -d "$tmp"; \
                         # If the zip contains exactly one meaningful top-level dir, use it.
                         # (Ignore macOS metadata like __MACOSX and dotfiles.)
-                        top_dir="$(find "$tmp" -mindepth 1 -maxdepth 1 -type d ! -name '__MACOSX' ! -name '.*' -print | head -n 1)"; \
-                        top_count="$(find "$tmp" -mindepth 1 -maxdepth 1 ! -name '__MACOSX' ! -name '.*' -print | wc -l | tr -d ' ')"; \
+                        top_dir="$(find "$tmp" \
+                            -mindepth 1 -maxdepth 1 \
+                            -type d ! -name '__MACOSX' ! -name '.*' \
+                            -print | head -n 1)"; \
+                        top_count="$(find "$tmp" \
+                            -mindepth 1 -maxdepth 1 \
+                            ! -name '__MACOSX' ! -name '.*' \
+                            -print | wc -l | tr -d ' ')"; \
                         if [ "$top_count" = "1" ] && [ -n "$top_dir" ]; then \
                             top_name="$(basename "$top_dir")"; \
                             rm -rf "$dest_dir/$top_name"; \
@@ -70,7 +71,10 @@ RUN set -eux; \
                             # Otherwise, extract into a folder named after the zip.
                             rm -rf "$dest_dir/$name"; \
                             mkdir -p "$dest_dir/$name"; \
-                            find "$tmp" -mindepth 1 -maxdepth 1 ! -name '__MACOSX' ! -name '.*' -exec cp -a {} "$dest_dir/$name/" \;; \
+                            find "$tmp" \
+                                -mindepth 1 -maxdepth 1 \
+                                ! -name '__MACOSX' ! -name '.*' \
+                                -exec cp -a {} "$dest_dir/$name/" \;; \
                         fi; \
                         rm -rf "$tmp"; \
                         ;; \
@@ -94,3 +98,6 @@ COPY tour41-entrypoint.sh /usr/local/bin/tour41-entrypoint.sh
 RUN chmod +x /usr/local/bin/tour41-entrypoint.sh
 
 ENTRYPOINT ["tour41-entrypoint.sh"]
+
+# Be explicit: run php-fpm by default.
+CMD ["php-fpm"]
