@@ -66,6 +66,7 @@ services:
         define('WP_CACHE', true);
     volumes:
       - wp_data:/var/www/html
+      - ./updraft:/backups
     networks:
       - backend
 
