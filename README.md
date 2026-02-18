@@ -128,6 +128,8 @@ docker compose exec backup /backup/scripts/restore.sh latest
 
 See **[BACKUP.md](BACKUP.md)** for complete setup guide, restore procedures, troubleshooting, and disaster recovery.
 
+See **[BACKUP-TESTING.md](BACKUP-TESTING.md)** for comprehensive testing procedures before production deployment.
+
 ---
 
 ## Legacy Backup Script

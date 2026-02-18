@@ -427,3 +427,81 @@ restic prune
 - **Restic docs**: https://restic.readthedocs.io/
 - **OCI docs**: https://docs.oracle.com/en-us/iaas/Content/Object/home.htm
 - **Issues**: https://github.com/tour41-phil/tour41.net/issues
+
+## Quick Reference
+
+### Helper Script
+
+A convenience script is provided for common operations:
+
+```bash
+# Run backup now
+./scripts/backup-helper.sh run
+
+# List snapshots
+./scripts/backup-helper.sh list
+
+# Check status
+./scripts/backup-helper.sh status
+
+# Interactive restore
+./scripts/backup-helper.sh restore
+
+# View logs
+./scripts/backup-helper.sh logs
+
+# Show all commands
+./scripts/backup-helper.sh help
+```
+
+### Environment Variables Reference
+
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `OCI_S3_ENDPOINT` | Yes | - | OCI S3-compatible endpoint URL |
+| `OCI_BUCKET_NAME` | Yes | - | OCI bucket name for backups |
+| `AWS_ACCESS_KEY_ID` | Yes | - | OCI Customer Secret Key (access key) |
+| `AWS_SECRET_ACCESS_KEY` | Yes | - | OCI Customer Secret Key (secret) |
+| `RESTIC_PASSWORD` | Yes | - | Restic repository encryption password |
+| `BACKUP_CRON` | No | `30 3 * * *` | Backup schedule (cron format) |
+| `BACKUP_RUN_ON_STARTUP` | No | `false` | Run backup on container start |
+| `RESTIC_KEEP_DAILY` | No | `7` | Daily backups to keep |
+| `RESTIC_KEEP_WEEKLY` | No | `4` | Weekly backups to keep |
+| `RESTIC_KEEP_MONTHLY` | No | `6` | Monthly backups to keep |
+
+### Common Restic Commands
+
+```bash
+# All commands run inside the backup container
+docker compose exec backup [command]
+
+# List snapshots
+restic snapshots
+
+# Show snapshot details
+restic snapshots <snapshot-id>
+
+# Compare two snapshots
+restic diff <snapshot1> <snapshot2>
+
+# Check repository
+restic check
+
+# Show repository statistics
+restic stats
+
+# List files in snapshot
+restic ls <snapshot-id>
+
+# Unlock repository (after crash/interruption)
+restic unlock
+
+# Rebuild index
+restic rebuild-index
+
+# Forget specific snapshot
+restic forget <snapshot-id>
+
+# Manual prune (remove unreferenced data)
+restic prune
+```
