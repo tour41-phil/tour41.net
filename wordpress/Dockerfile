@@ -6,14 +6,13 @@
 FROM wordpress:6.9.1-php8.4-fpm
 
 # Tools needed to unpack theme/plugin zip archives at build time + Redis PHP
-# extension (required by object-cache drop-in) + GZip (for GEOIP) + image revision marker.
+# extension (required by object-cache drop-in) + GZip runtime (for GEOIP) + image revision marker.
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y --no-install-recommends unzip; \
+    apt-get install -y --no-install-recommends unzip zlib1g; \
     rm -rf /var/lib/apt/lists/*; \
     pecl install redis; \
     docker-php-ext-enable redis; \
-    docker-php-ext-enable gzip; \
     date -u +%Y-%m-%dT%H:%M:%SZ > /usr/src/wordpress/.tour41-baked-revision
 
 # ── PHP Optimization ──────────────────────────────────────────────────────
