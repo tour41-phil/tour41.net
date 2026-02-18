@@ -6,14 +6,28 @@
 FROM wordpress:6.9.1-php8.4-fpm
 
 # Tools needed to unpack theme/plugin zip archives at build time + Redis PHP
-# extension (required by object-cache drop-in) + image revision marker.
+# extension (required by object-cache drop-in) + GZip (for GEOIP) + image revision marker.
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends unzip; \
     rm -rf /var/lib/apt/lists/*; \
     pecl install redis; \
     docker-php-ext-enable redis; \
+    docker-php-ext-enable gzip; \
     date -u +%Y-%m-%dT%H:%M:%SZ > /usr/src/wordpress/.tour41-baked-revision
+
+# ── PHP Optimization ──────────────────────────────────────────────────────
+# Configure memory and execution limits for WordPress operations (Demo Import,
+# Elementor, etc.) and ensure GZip compatibility for GEOIP databases.
+RUN set -eux; \
+    { \
+        echo 'memory_limit = 512M'; \
+        echo 'post_max_size = 256M'; \
+        echo 'upload_max_filesize = 256M'; \
+        echo 'max_execution_time = 3000'; \
+        echo 'max_input_time = 3000'; \
+        echo 'max_input_vars = 3000'; \
+    } > /usr/local/etc/php/conf.d/uploads.ini
 
 # ── Custom theme ──────────────────────────────────────────────────────────
 # Supports either directories OR .zip archives under wordpress/themes/.
