@@ -59,8 +59,8 @@ services:
       WORDPRESS_DB_USER: ${MYSQL_USER:-wordpress}
       WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       WORDPRESS_TABLE_PREFIX: ${WP_TABLE_PREFIX:-wp_}
-      WP_HOME: "https://new.tour41.net"
-      WP_SITEURL: "https://new.tour41.net"
+      WP_HOME: "https://${DOMAIN:-tour41.net}"
+      WP_SITEURL: "https://${DOMAIN:-tour41.net}"
       # Redis connection for object-cache drop-in
       WORDPRESS_CONFIG_EXTRA: |
         define('WP_REDIS_HOST', 'redis');
