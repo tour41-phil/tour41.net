@@ -1,0 +1,106 @@
+# ==========================================================================
+# tour41.net – WordPress stack
+# ==========================================================================
+# Services: WordPress (php-fpm), Nginx, MariaDB, Redis
+# Routing:  Traefik (external) → Nginx → php-fpm
+# ==========================================================================
+
+services:
+  # ── MariaDB ─────────────────────────────────────────────────────────────
+  mariadb:
+    image: mariadb:11.7.2
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-wordpress}
+      MYSQL_USER: ${MYSQL_USER:-wordpress}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  # ── Redis (object cache) ────────────────────────────────────────────────
+  redis:
+    image: redis:7.4.2-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--maxmemory", "128mb", "--maxmemory-policy", "allkeys-lru"]
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ── WordPress (php-fpm) ─────────────────────────────────────────────────
+  wordpress:
+    image: ${WP_IMAGE:-ghcr.io/tour41-phil/tour41.net:latest}
+    build:
+      context: ./wordpress
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE:-wordpress}
+      WORDPRESS_DB_USER: ${MYSQL_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_TABLE_PREFIX: ${WP_TABLE_PREFIX:-wp_}
+      # Redis connection for object-cache drop-in
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_REDIS_HOST', 'redis');
+        define('WP_REDIS_PORT', 6379);
+        define('WP_CACHE', true);
+    volumes:
+      - wp_data:/var/www/html
+    networks:
+      - backend
+
+  # ── Nginx ───────────────────────────────────────────────────────────────
+  nginx:
+    image: nginx:1.27.4-alpine
+    restart: unless-stopped
+    depends_on:
+      - wordpress
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - wp_data:/var/www/html:ro
+    networks:
+      - backend
+      - homelab_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=homelab_network"
+      # HTTP router
+      - "traefik.http.routers.tour41.rule=Host(`${DOMAIN:-tour41.net}`)"
+      - "traefik.http.routers.tour41.entrypoints=websecure"
+      - "traefik.http.routers.tour41.tls=true"
+      - "traefik.http.routers.tour41.tls.certresolver=${CERT_RESOLVER:-letsencrypt}"
+      # Service port
+      - "traefik.http.services.tour41.loadbalancer.server.port=80"
+
+# ── Volumes ───────────────────────────────────────────────────────────────
+volumes:
+  db_data:
+  wp_data:
+  redis_data:
+
+# ── Networks ──────────────────────────────────────────────────────────────
+networks:
+  backend:
+    driver: bridge
+  homelab_network:
+    external: true

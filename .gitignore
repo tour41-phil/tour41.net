@@ -1,1 +1,19 @@
 build/
+
+# Environment / secrets
+.env
+
+# WordPress uploads & runtime data (lives on the server, not in git)
+data/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
