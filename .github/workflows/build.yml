@@ -1,11 +1,3 @@
-# ==========================================================================
-# Build & push custom WordPress image to GHCR
-# ==========================================================================
-# Triggers:
-#   - Push to main that changes wordpress/** (theme/plugin/Dockerfile edits)
-#   - Manual dispatch
-# ==========================================================================
-
 name: Build WordPress Image
 
 on:
@@ -14,6 +6,10 @@ on:
     paths:
       - "wordpress/**"
   workflow_dispatch:
+
+concurrency:
+  group: build-wordpress-main
+  cancel-in-progress: true
 
 env:
   REGISTRY: ghcr.io
@@ -29,6 +25,23 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Determine whether this run may publish latest
+        id: headcheck
+        shell: bash
+        run: |
+          git fetch origin main
+          MAIN_HEAD="$(git rev-parse origin/main)"
+
+          echo "main_head=$MAIN_HEAD" >> "$GITHUB_OUTPUT"
+
+          if [[ "${GITHUB_REF}" == "refs/heads/main" && "${GITHUB_SHA}" == "$MAIN_HEAD" && "${GITHUB_EVENT_NAME}" == "push" ]]; then
+            echo "publish_latest=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish_latest=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Log in to GHCR
         uses: docker/login-action@v4
@@ -44,7 +57,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=sha,prefix=sha-
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=latest,enable=${{ steps.headcheck.outputs.publish_latest == 'true' }}
 
       - name: Build and push image
         uses: docker/build-push-action@v7
