@@ -30,6 +30,21 @@ log() {
   printf '%s\n' "tour41-entrypoint: $*" >&2
 }
 
+copy_if_missing() {
+  # Copy source to destination only if destination does not already exist.
+  # Usage: copy_if_missing /src/path /dst/path
+  src="$1"
+  dst="$2"
+
+  if [ -e "$dst" ] || [ -L "$dst" ]; then
+    log "Keeping existing override: $dst"
+    return 0
+  fi
+
+  mkdir -p "$(dirname "$dst")"
+  cp -a "$src" "$dst"
+}
+
 copy_replace() {
   # Replace a destination path with the source path (handles deletions).
   # Usage: copy_replace /src/path /dst/path
@@ -94,19 +109,8 @@ sync_baked_plugins_and_themes() {
       [ -e "$item" ] || continue
       name="$(basename "$item")"
       printf '%s\n' "$name" >> "$tmp_plugins"
-      copy_replace "$item" "$DST_ROOT/wp-content/plugins/$name"
+      copy_if_missing "$item" "$DST_ROOT/wp-content/plugins/$name"
     done
-  fi
-
-  # Remove plugins that used to be baked-in but are no longer present in the image.
-  if [ -f "$DST_BAKED_PLUGINS_LIST" ]; then
-    while IFS= read -r old_name; do
-      [ -n "$old_name" ] || continue
-      if ! grep -Fxq "$old_name" "$tmp_plugins" 2>/dev/null; then
-        log "Removing stale baked plugin: $old_name"
-        rm -rf "$DST_ROOT/wp-content/plugins/$old_name" || true
-      fi
-    done < "$DST_BAKED_PLUGINS_LIST"
   fi
 
   # Themes
@@ -116,19 +120,8 @@ sync_baked_plugins_and_themes() {
       [ -e "$item" ] || continue
       name="$(basename "$item")"
       printf '%s\n' "$name" >> "$tmp_themes"
-      copy_replace "$item" "$DST_ROOT/wp-content/themes/$name"
+      copy_if_missing "$item" "$DST_ROOT/wp-content/themes/$name"
     done
-  fi
-
-  # Remove themes that used to be baked-in but are no longer present in the image.
-  if [ -f "$DST_BAKED_THEMES_LIST" ]; then
-    while IFS= read -r old_name; do
-      [ -n "$old_name" ] || continue
-      if ! grep -Fxq "$old_name" "$tmp_themes" 2>/dev/null; then
-        log "Removing stale baked theme: $old_name"
-        rm -rf "$DST_ROOT/wp-content/themes/$old_name" || true
-      fi
-    done < "$DST_BAKED_THEMES_LIST"
   fi
 
   # Persist baked lists into the volume for the next run.
