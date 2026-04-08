@@ -1,8 +1,9 @@
 # ==========================================================================
 # tour41.net – WordPress stack
 # ==========================================================================
-# Services: WordPress (php-fpm), Nginx, MariaDB, Redis
+# Services: WordPress (php-fpm), Nginx, MariaDB, Redis, Watchtower
 # Routing:  Traefik (external) → Nginx → php-fpm
+# Updates:  Watchtower pulls new GHCR images for selected services
 # ==========================================================================
 
 services:
@@ -25,6 +26,11 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   # ── Redis (object cache) ────────────────────────────────────────────────
   redis:
@@ -40,13 +46,15 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   # ── WordPress (php-fpm) ─────────────────────────────────────────────────
   wordpress:
     image: ${WP_IMAGE:-ghcr.io/tour41-phil/tour41.net:latest}
-    build:
-      context: ./wordpress
-      dockerfile: Dockerfile
     restart: unless-stopped
     depends_on:
       mariadb:
@@ -61,7 +69,6 @@ services:
       WORDPRESS_TABLE_PREFIX: ${WP_TABLE_PREFIX:-wp_}
       WP_HOME: "https://${DOMAIN:-tour41.net}"
       WP_SITEURL: "https://${DOMAIN:-tour41.net}"
-      # Redis connection for object-cache drop-in
       WORDPRESS_CONFIG_EXTRA: |
         define('WP_REDIS_HOST', 'redis');
         define('WP_REDIS_PORT', 6379);
@@ -74,6 +81,13 @@ services:
       - ${BACKUP_HOST_PATH:-.}/updraft:/backups
     networks:
       - backend
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   # ── Nginx ───────────────────────────────────────────────────────────────
   nginx:
@@ -91,13 +105,17 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=homelab_network"
-      # HTTP router
-      - "traefik.http.routers.tour41.rule=Host(`${DOMAIN:-tour41.net}`)"
+      - "com.centurylinklabs.watchtower.enable=false"
+      - "traefik.http.routers.tour41.rule=Host(`${DOMAIN:-tour41.net}`) || Host(`www.${DOMAIN:-tour41.net}`)"
       - "traefik.http.routers.tour41.entrypoints=websecure"
       - "traefik.http.routers.tour41.tls=true"
       - "traefik.http.routers.tour41.tls.certresolver=${CERT_RESOLVER:-letsencrypt}"
-      # Service port
       - "traefik.http.services.tour41.loadbalancer.server.port=80"
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   # ── Nginx (weilwirsovielesind static site) ─────────────────────────────
   weilwirsovielesind-nginx:
@@ -111,20 +129,21 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=homelab_network"
-      # HTTP router for weilwirsovielesind.de
+      - "com.centurylinklabs.watchtower.enable=false"
       - "traefik.http.routers.weilwirsovielesind.rule=Host(`${WEILWIRSOVIELESIND_DOMAIN:-weilwirsovielesind.de}`) || Host(`www.${WEILWIRSOVIELESIND_DOMAIN:-weilwirsovielesind.de}`)"
       - "traefik.http.routers.weilwirsovielesind.entrypoints=websecure"
       - "traefik.http.routers.weilwirsovielesind.tls=true"
       - "traefik.http.routers.weilwirsovielesind.tls.certresolver=${CERT_RESOLVER:-letsencrypt}"
-      # Service port
       - "traefik.http.services.weilwirsovielesind.loadbalancer.server.port=80"
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   # ── Backup (restic + supercronic) ───────────────────────────────────────
   backup:
     image: ${BACKUP_IMAGE:-ghcr.io/tour41-phil/tour41.net-backup:latest}
-    build:
-      context: ./backup
-      dockerfile: Dockerfile
     restart: unless-stopped
     depends_on:
       mariadb:
@@ -132,41 +151,63 @@ services:
       wordpress:
         condition: service_started
     environment:
-      # Backup configuration
       BACKUP_NAME: ${DOMAIN:-tour41.net}
       BACKUP_CRON: ${BACKUP_CRON:-30 3 * * *}
       RUN_ON_STARTUP: ${BACKUP_RUN_ON_STARTUP:-false}
-      
-      # OCI Object Storage (S3-compatible)
+
       OCI_S3_ENDPOINT: ${OCI_S3_ENDPOINT}
       OCI_BUCKET_NAME: ${OCI_BUCKET_NAME}
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-      
-      # Restic configuration
+
       RESTIC_PASSWORD: ${RESTIC_PASSWORD}
       RESTIC_KEEP_DAILY: ${RESTIC_KEEP_DAILY:-7}
       RESTIC_KEEP_WEEKLY: ${RESTIC_KEEP_WEEKLY:-4}
       RESTIC_KEEP_MONTHLY: ${RESTIC_KEEP_MONTHLY:-6}
-      
-      # Database credentials
+
       DB_HOST: mariadb
       MYSQL_DATABASE: ${MYSQL_DATABASE:-wordpress}
       MYSQL_USER: ${MYSQL_USER:-wordpress}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      
-      # Domain for metadata
+
       DOMAIN: ${DOMAIN:-tour41.net}
     volumes:
-      # Mount volumes for backup
       - wp_data:/wp_data:ro
       - db_data:/db_data:ro
-      # Mount uploads directory for backup
       - /opt/tour41.net-uploads:/opt/tour41.net-uploads:ro
-      # Mount git repo for metadata (optional)
       - ./.git:/repo/.git:ro
     networks:
       - backend
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ── Watchtower (auto-update selected services) ──────────────────────────
+  watchtower:
+    image: containrrr/watchtower:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      WATCHTOWER_LABEL_ENABLE: "true"
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_POLL_INTERVAL: "3600"
+      WATCHTOWER_INCLUDE_RESTARTING: "true"
+      WATCHTOWER_ROLLING_RESTART: "true"
+    command:
+      - wordpress
+      - backup
+    networks:
+      - backend
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 # ── Volumes ───────────────────────────────────────────────────────────────
 volumes:
