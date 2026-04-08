@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------
 # Pin to a specific minor version for reproducibility.  Bump deliberately and
 # rebuild through CI when upgrading WordPress.
-FROM wordpress:6.9.1-php8.4-fpm
+FROM wordpress:6.9.4-php8.4-fpm
 
 # Tools needed to unpack theme/plugin zip archives at build time + Redis PHP
 # extension (required by object-cache drop-in) + GZip runtime (for GEOIP) + MariaDB
