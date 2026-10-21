@@ -10,9 +10,18 @@ FROM wordpress:7.1.3-php8.5-fpm
 # client (for database import/export) + image revision marker.
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y --no-install-recommends unzip zlib1g mariadb-client php-redis; \
+    apt-get install -y --no-install-recommends unzip zlib1g mariadb-client ca-certificates curl build-essential autoconf pkg-config; \
     rm -rf /var/lib/apt/lists/*; \
+    curl -fsSL https://github.com/phpredis/phpredis/archive/refs/tags/6.3.0.tar.gz -o /tmp/phpredis.tar.gz; \
+    mkdir -p /tmp/phpredis; \
+    tar -xzf /tmp/phpredis.tar.gz -C /tmp/phpredis --strip-components=1; \
+    cd /tmp/phpredis; \
+    phpize; \
+    ./configure; \
+    make -j"$(nproc)"; \
+    make install; \
     docker-php-ext-enable redis; \
+    rm -rf /tmp/phpredis /tmp/phpredis.tar.gz; \
     date -u +%Y-%m-%dT%H:%M:%SZ > /usr/src/wordpress/.tour41-baked-revision
 
 # ── PHP Optimization ──────────────────────────────────────────────────────
