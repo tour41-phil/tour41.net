@@ -1,9 +1,31 @@
 # ---------------------------------------------------------------------------
+# Patched PHP source image
+# ---------------------------------------------------------------------------
+FROM php:8.5.12-fpm AS php8512
+
+# ---------------------------------------------------------------------------
 # Custom WordPress image – php-fpm variant with theme + plugins baked in
 # ---------------------------------------------------------------------------
 # Pin to a specific minor version for reproducibility.  Bump deliberately and
 # rebuild through CI when upgrading WordPress.
 FROM wordpress:7.1.3-php8.5-fpm
+
+# Make patched PHP available for the conditional upgrade.
+COPY --from=php8512 /usr/local/ /tmp/php8512/
+
+# Upgrade PHP only when the base image contains exactly 8.5.11.
+RUN set -eux; \
+    current="$(php -r 'echo PHP_VERSION;')"; \
+    if [ "$current" = "8.5.11" ]; then \
+        echo "PHP $current detected; upgrading to 8.5.12"; \
+        test "$( /tmp/php8512/bin/php -r 'echo PHP_VERSION;' )" = "8.5.12"; \
+        cp -a /tmp/php8512/. /usr/local/; \
+        test "$(php -r 'echo PHP_VERSION;')" = "8.5.12"; \
+        echo "PHP successfully upgraded to 8.5.12"; \
+    else \
+        echo "PHP $current detected; skipping conditional upgrade"; \
+    fi; \
+    rm -rf /tmp/php8512
 
 # Tools needed to unpack theme/plugin zip archives + Redis PHP
 # extension (required by object-cache drop-in) + GZip runtime (for GEOIP) + MariaDB
