@@ -5,16 +5,13 @@
 # rebuild through CI when upgrading WordPress.
 FROM wordpress:7.1.3-php8.5-fpm
 
-# Tools needed to unpack theme/plugin zip archives at build time + Redis PHP
+# Tools needed to unpack theme/plugin zip archives + Redis PHP
 # extension (required by object-cache drop-in) + GZip runtime (for GEOIP) + MariaDB
 # client (for database import/export) + image revision marker.
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y --no-install-recommends unzip zlib1g mariadb-client; \
+    apt-get install -y --no-install-recommends unzip zlib1g mariadb-client php-redis; \
     rm -rf /var/lib/apt/lists/*; \
-    for i in 1 2 3 4 5; do \
-        pecl install redis && break || { echo "redis pecl failed, retry $i/5"; sleep 10; }; \
-    done; \
     docker-php-ext-enable redis; \
     date -u +%Y-%m-%dT%H:%M:%SZ > /usr/src/wordpress/.tour41-baked-revision
 
