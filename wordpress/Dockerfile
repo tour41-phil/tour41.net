@@ -12,7 +12,9 @@ RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends unzip zlib1g mariadb-client; \
     rm -rf /var/lib/apt/lists/*; \
-    pecl install redis; \
+    for i in 1 2 3 4 5; do \
+        pecl install redis && break || { echo "redis pecl failed, retry $i/5"; sleep 10; }; \
+    done; \
     docker-php-ext-enable redis; \
     date -u +%Y-%m-%dT%H:%M:%SZ > /usr/src/wordpress/.tour41-baked-revision
 
